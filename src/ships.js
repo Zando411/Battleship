@@ -1,5 +1,6 @@
-function createShip(name, length) {
+function createShip(key, name, length) {
   return {
+    key,
     name,
     length,
     hits: 0,
