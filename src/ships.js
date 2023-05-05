@@ -3,6 +3,7 @@ function createShip(key, name, length) {
     key,
     name,
     length,
+    vertical: false,
     hits: 0,
     sunk: false,
     hit: function () {

@@ -3,8 +3,15 @@ import { createShip } from './ships';
 const ROWS = 10;
 const COLUMNS = 10;
 
+const playerGameboard = newGameboard();
+
 function newGameboard() {
-  return (board = new Array(ROWS).fill(new Array(COLUMNS).fill(null)));
+  return new Array(ROWS).fill(
+    new Array(COLUMNS).fill({
+      isHit: false,
+      hasShip: 10,
+    })
+  );
 }
 
 function makeShips() {
@@ -28,4 +35,40 @@ function makeShips() {
   return ships;
 }
 
-export { makeShips };
+function placeShips(currentShip, x, y) {
+  const key = currentShip.key;
+  const length = currentShip.length;
+  const isVertical = currentShip.vertical;
+
+  if (isVertical) {
+    if (y + length > ROWS) {
+      throw new Error("Ship can't be placed here.");
+    }
+    for (let i = 0; i < length; i++) {
+      if (playerGameboard[y + i][x].hasShip !== 10) {
+        throw new Error("Ship can't be placed here.");
+      }
+    }
+  } else {
+    if (x + length > COLUMNS) {
+      throw new Error("Ship can't be placed here.");
+    }
+    for (let i = 0; i < length; i++) {
+      if (playerGameboard[y][x + i].hasShip !== 10) {
+        throw new Error("Ship can't be placed here.");
+      }
+    }
+  }
+
+  if (isVertical) {
+    for (let i = 0; i < length; i++) {
+      playerGameboard[y + i][x].hasShip = key;
+    }
+  } else {
+    for (let i = 0; i < length; i++) {
+      playerGameboard[y][x + i].hasShip = key;
+    }
+  }
+}
+
+export { makeShips, playerGameboard, placeShips };
