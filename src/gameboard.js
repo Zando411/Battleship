@@ -37,7 +37,6 @@ function makeShips() {
     let ship = createShip(key[i], names[i], size[i]);
     ships.push(ship);
   }
-  console.log(ships);
   return ships;
 }
 
