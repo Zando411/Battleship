@@ -1,4 +1,4 @@
-import { createShip } from './ships';
+import { createShip } from './ships.js';
 
 const ROWS = 10;
 const COLUMNS = 10;
@@ -7,12 +7,17 @@ const playerGameboard = newGameboard();
 const opponentGameboard = newGameboard();
 
 function newGameboard() {
-  return new Array(ROWS).fill(
-    new Array(COLUMNS).fill({
-      isHit: false,
-      hasShip: null,
-    })
-  );
+  const gameboard = new Array(ROWS);
+  for (let i = 0; i < gameboard.length; i++) {
+    gameboard[i] = new Array(COLUMNS);
+    for (let j = 0; j < gameboard[i].length; j++) {
+      gameboard[i][j] = {
+        isHit: false,
+        hasShip: null,
+      };
+    }
+  }
+  return gameboard;
 }
 
 function makeShips() {
@@ -72,4 +77,17 @@ function placeShips(gameboard, currentShip, x, y) {
   }
 }
 
-export { makeShips, playerGameboard, placeShips, opponentGameboard };
+function receiveAttack(gameboard, x, y) {
+  if (gameboard[y][x].isHit === true) {
+    throw new Error('This square has already been hit!');
+  }
+  gameboard[y][x].isHit = true;
+}
+
+export {
+  makeShips,
+  playerGameboard,
+  opponentGameboard,
+  placeShips,
+  receiveAttack,
+};
