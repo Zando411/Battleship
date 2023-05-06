@@ -1,5 +1,10 @@
 import { createShip } from './ships';
-import { makeShips, placeShips, playerGameboard } from './gameboard';
+import {
+  makeShips,
+  placeShips,
+  playerGameboard,
+  opponentGameboard,
+} from './gameboard';
 
 describe('createShip', () => {
   test('creates a ship object with the correct length', () => {
@@ -65,31 +70,36 @@ describe('placeShips', () => {
         playerGameboard[i][j].hasShip = null;
       }
     }
+    for (let i = 0; i < opponentGameboard.length; i++) {
+      for (let j = 0; j < opponentGameboard[0].length; j++) {
+        opponentGameboard[i][j].hasShip = null;
+      }
+    }
   });
 
   test('ships can place horizontally', () => {
     const ship = makeShips();
-    placeShips(ship[2], 0, 0);
+    placeShips(playerGameboard, ship[2], 0, 0);
     expect(playerGameboard[0][0].hasShip).toBe(2);
   });
   test('ships can place vertically', () => {
     const ship = makeShips();
     ship[2].vertical = true;
-    placeShips(ship[2], 0, 0);
+    placeShips(playerGameboard, ship[2], 0, 0);
     expect(playerGameboard[0][0].hasShip).toBe(2);
   });
 
   test('ships cannot be placed out of bounds', () => {
     const ship = makeShips();
     expect(() => {
-      placeShips(ship[0], 8, 8);
+      placeShips(playerGameboard, ship[0], 8, 8);
     }).toThrow("Ship can't be placed here.");
   });
   test('ships cannot be placed out of bounds vertical', () => {
     const ship = makeShips();
     ship[0].vertical = true;
     expect(() => {
-      placeShips(ship[0], 8, 8);
+      placeShips(playerGameboard, ship[0], 8, 8);
     }).toThrow("Ship can't be placed here.");
   });
 
@@ -97,8 +107,8 @@ describe('placeShips', () => {
     const ship1 = makeShips()[0];
     const ship2 = makeShips()[1];
     expect(() => {
-      placeShips(ship1, 0, 0);
-      placeShips(ship2, 0, 0);
+      placeShips(playerGameboard, ship1, 0, 0);
+      placeShips(playerGameboard, ship2, 0, 0);
     }).toThrow("Ship can't be placed here.");
   });
 
@@ -107,8 +117,53 @@ describe('placeShips', () => {
     const ship2 = makeShips()[1];
     ship2.vertical = true;
     expect(() => {
-      placeShips(ship1, 1, 1);
-      placeShips(ship2, 0, 0);
+      placeShips(playerGameboard, ship1, 1, 1);
+      placeShips(playerGameboard, ship2, 0, 0);
+    }).toThrow("Ship can't be placed here.");
+  });
+
+  test('ships can place horizontally', () => {
+    const ship = makeShips();
+    placeShips(opponentGameboard, ship[2], 0, 0);
+    expect(opponentGameboard[0][0].hasShip).toBe(2);
+  });
+  test('ships can place vertically', () => {
+    const ship = makeShips();
+    ship[2].vertical = true;
+    placeShips(opponentGameboard, ship[2], 0, 0);
+    expect(opponentGameboard[0][0].hasShip).toBe(2);
+  });
+
+  test('ships cannot be placed out of bounds', () => {
+    const ship = makeShips();
+    expect(() => {
+      placeShips(opponentGameboard, ship[0], 8, 8);
+    }).toThrow("Ship can't be placed here.");
+  });
+  test('ships cannot be placed out of bounds vertical', () => {
+    const ship = makeShips();
+    ship[0].vertical = true;
+    expect(() => {
+      placeShips(opponentGameboard, ship[0], 8, 8);
+    }).toThrow("Ship can't be placed here.");
+  });
+
+  test('ships cannot overlap', () => {
+    const ship1 = makeShips()[0];
+    const ship2 = makeShips()[1];
+    expect(() => {
+      placeShips(opponentGameboard, ship1, 0, 0);
+      placeShips(opponentGameboard, ship2, 0, 0);
+    }).toThrow("Ship can't be placed here.");
+  });
+
+  test('ships cannot overlap crossed', () => {
+    const ship1 = makeShips()[0];
+    const ship2 = makeShips()[1];
+    ship2.vertical = true;
+    expect(() => {
+      placeShips(opponentGameboard, ship1, 1, 1);
+      placeShips(opponentGameboard, ship2, 0, 0);
     }).toThrow("Ship can't be placed here.");
   });
 });

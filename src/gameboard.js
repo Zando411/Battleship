@@ -4,6 +4,7 @@ const ROWS = 10;
 const COLUMNS = 10;
 
 const playerGameboard = newGameboard();
+const opponentGameboard = newGameboard();
 
 function newGameboard() {
   return new Array(ROWS).fill(
@@ -35,7 +36,7 @@ function makeShips() {
   return ships;
 }
 
-function placeShips(currentShip, x, y) {
+function placeShips(gameboard, currentShip, x, y) {
   const key = currentShip.key;
   const length = currentShip.length;
   const isVertical = currentShip.vertical;
@@ -45,7 +46,7 @@ function placeShips(currentShip, x, y) {
       throw new Error("Ship can't be placed here.");
     }
     for (let i = 0; i < length; i++) {
-      if (playerGameboard[y + i][x].hasShip !== null) {
+      if (gameboard[y + i][x].hasShip !== null) {
         throw new Error("Ship can't be placed here.");
       }
     }
@@ -54,7 +55,7 @@ function placeShips(currentShip, x, y) {
       throw new Error("Ship can't be placed here.");
     }
     for (let i = 0; i < length; i++) {
-      if (playerGameboard[y][x + i].hasShip !== null) {
+      if (gameboard[y][x + i].hasShip !== null) {
         throw new Error("Ship can't be placed here.");
       }
     }
@@ -62,13 +63,13 @@ function placeShips(currentShip, x, y) {
 
   if (isVertical) {
     for (let i = 0; i < length; i++) {
-      playerGameboard[y + i][x].hasShip = key;
+      gameboard[y + i][x].hasShip = key;
     }
   } else {
     for (let i = 0; i < length; i++) {
-      playerGameboard[y][x + i].hasShip = key;
+      gameboard[y][x + i].hasShip = key;
     }
   }
 }
 
-export { makeShips, playerGameboard, placeShips };
+export { makeShips, playerGameboard, placeShips, opponentGameboard };
