@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "battleship web game",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "build": "webpack",
     "test": "jest"
