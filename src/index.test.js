@@ -62,7 +62,7 @@ describe('placeShips', () => {
   beforeEach(() => {
     for (let i = 0; i < playerGameboard.length; i++) {
       for (let j = 0; j < playerGameboard[0].length; j++) {
-        playerGameboard[i][j].hasShip = 10;
+        playerGameboard[i][j].hasShip = null;
       }
     }
   });

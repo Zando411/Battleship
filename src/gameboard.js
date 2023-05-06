@@ -9,7 +9,7 @@ function newGameboard() {
   return new Array(ROWS).fill(
     new Array(COLUMNS).fill({
       isHit: false,
-      hasShip: 10,
+      hasShip: null,
     })
   );
 }
@@ -45,7 +45,7 @@ function placeShips(currentShip, x, y) {
       throw new Error("Ship can't be placed here.");
     }
     for (let i = 0; i < length; i++) {
-      if (playerGameboard[y + i][x].hasShip !== 10) {
+      if (playerGameboard[y + i][x].hasShip !== null) {
         throw new Error("Ship can't be placed here.");
       }
     }
@@ -54,7 +54,7 @@ function placeShips(currentShip, x, y) {
       throw new Error("Ship can't be placed here.");
     }
     for (let i = 0; i < length; i++) {
-      if (playerGameboard[y][x + i].hasShip !== 10) {
+      if (playerGameboard[y][x + i].hasShip !== null) {
         throw new Error("Ship can't be placed here.");
       }
     }
