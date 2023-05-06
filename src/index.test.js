@@ -4,6 +4,7 @@ import {
   placeShips,
   playerGameboard,
   opponentGameboard,
+  receiveAttack,
 } from './gameboard';
 
 describe('createShip', () => {
@@ -68,11 +69,13 @@ describe('placeShips', () => {
     for (let i = 0; i < playerGameboard.length; i++) {
       for (let j = 0; j < playerGameboard[0].length; j++) {
         playerGameboard[i][j].hasShip = null;
+        playerGameboard[i][j].isHit = false;
       }
     }
     for (let i = 0; i < opponentGameboard.length; i++) {
       for (let j = 0; j < opponentGameboard[0].length; j++) {
         opponentGameboard[i][j].hasShip = null;
+        opponentGameboard[i][j].isHit = false;
       }
     }
   });
@@ -118,7 +121,7 @@ describe('placeShips', () => {
     ship2.vertical = true;
     expect(() => {
       placeShips(playerGameboard, ship1, 1, 1);
-      placeShips(playerGameboard, ship2, 0, 0);
+      placeShips(playerGameboard, ship2, 1, 0);
     }).toThrow("Ship can't be placed here.");
   });
 
@@ -162,8 +165,23 @@ describe('placeShips', () => {
     const ship2 = makeShips()[1];
     ship2.vertical = true;
     expect(() => {
-      placeShips(opponentGameboard, ship1, 1, 1);
-      placeShips(opponentGameboard, ship2, 0, 0);
+      placeShips(playerGameboard, ship1, 1, 1);
+      placeShips(playerGameboard, ship2, 1, 0);
     }).toThrow("Ship can't be placed here.");
+  });
+
+  test('board can take hits', () => {
+    receiveAttack(playerGameboard, 0, 0);
+    expect(playerGameboard[0][0].isHit).toBe(true);
+  });
+  test('return false when not diff square is checked', () => {
+    receiveAttack(playerGameboard, 2, 2);
+    expect(playerGameboard[0][1].isHit).toBe(false);
+  });
+  test('board can take hits', () => {
+    receiveAttack(playerGameboard, 0, 0);
+    expect(() => {
+      receiveAttack(playerGameboard, 0, 0);
+    }).toThrow('This square has already been hit!');
   });
 });
