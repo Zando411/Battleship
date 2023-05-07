@@ -5,7 +5,7 @@ import {
   playerGameboard,
   opponentGameboard,
   receiveAttack,
-  newGameboard,
+  areAllShipsSunk,
   playerShips,
 } from './gameboard';
 
@@ -232,5 +232,29 @@ describe('receiveAttack', () => {
     receiveAttack(playerGameboard, 5, 4);
     receiveAttack(playerGameboard, 6, 4);
     expect(playerShips[0].sunk).toBe(false);
+  });
+
+  describe('areAllShipsSunk', () => {
+    test('returns true if all ships are sunk', () => {
+      const ships = makeShips();
+      ships.forEach((ship) => {
+        for (let i = 0; i < ship.length; i++) {
+          ship.hit();
+        }
+      });
+      expect(areAllShipsSunk(ships)).toBe(true);
+    });
+
+    test('returns false if not all ships are sunk', () => {
+      const ships = makeShips();
+      ships.forEach((ship) => {
+        if (ship.key !== 0) {
+          for (let i = 0; i < ship.length; i++) {
+            ship.hit();
+          }
+        }
+      });
+      expect(areAllShipsSunk(ships)).toBe(false);
+    });
   });
 });
