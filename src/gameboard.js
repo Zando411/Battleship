@@ -5,6 +5,7 @@ const COLUMNS = 10;
 
 const playerGameboard = newGameboard();
 const opponentGameboard = newGameboard();
+export const ships = makeShips();
 
 function newGameboard() {
   const gameboard = new Array(ROWS);
@@ -81,6 +82,10 @@ function receiveAttack(gameboard, x, y) {
     throw new Error('This square has already been hit!');
   }
   gameboard[y][x].isHit = true;
+  if (gameboard[y][x].hasShip !== null) {
+    const shipKey = gameboard[y][x].hasShip;
+    ships[shipKey].hit();
+  }
 }
 
 export {
@@ -89,4 +94,5 @@ export {
   opponentGameboard,
   placeShips,
   receiveAttack,
+  newGameboard,
 };
