@@ -42,6 +42,10 @@ function makeShips() {
   return ships;
 }
 
+function areAllShipsSunk(ships) {
+  return ships.every((ship) => ship.sunk);
+}
+
 function placeShips(gameboard, currentShip, x, y) {
   const key = currentShip.key;
   const length = currentShip.length;
@@ -102,4 +106,5 @@ export {
   placeShips,
   receiveAttack,
   newGameboard,
+  areAllShipsSunk,
 };
