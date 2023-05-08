@@ -123,11 +123,17 @@ function placeShipsRandom(placer) {
 
     function randomizer() {
       const { x, y } = randomCoords();
-      if (placedCoordinates.has(`${x},${y}`)) {
+      const isValid = isValidPosition(ship, x, y, ship.vertical, gameboard);
+
+      if (isValid === true) {
+        if (placedCoordinates.has(`${x},${y}`)) {
+          return randomizer();
+        }
+        placedCoordinates.add(`${x},${y}`);
+        return { x, y };
+      } else {
         return randomizer();
       }
-      placedCoordinates.add(`${x},${y}`);
-      return { x, y };
     }
 
     const { x, y } = randomizer();
@@ -162,9 +168,8 @@ function receiveAttack(gameboard, x, y) {
   }
 }
 
-// console.log(player.gameboard);
-// placeShipsRandom(player);
-// console.log(player.gameboard);
+placeShipsRandom(player);
+console.log(player.gameboard);
 
 export {
   makeShips,
