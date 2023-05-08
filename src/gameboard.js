@@ -45,40 +45,104 @@ function areAllShipsSunk(ships) {
   return ships.every((ship) => ship.sunk);
 }
 
+function isValidPosition(ship, x, y, isVertical, gameboard) {
+  const length = ship.length;
+
+  if (isVertical) {
+    if (y + length > ROWS) {
+      return false;
+    }
+    for (let i = 0; i < length; i++) {
+      if (gameboard[y + i][x].hasShip !== null) {
+        return false;
+      }
+    }
+  } else {
+    if (x + length > COLUMNS) {
+      return false;
+    }
+    for (let i = 0; i < length; i++) {
+      if (gameboard[y][x + i].hasShip !== null) {
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
 function placeShips(gameboard, currentShip, x, y) {
   const key = currentShip.key;
   const length = currentShip.length;
   const isVertical = currentShip.vertical;
 
-  if (isVertical) {
-    if (y + length > ROWS) {
-      throw new Error("Ship can't be placed here.");
-    }
-    for (let i = 0; i < length; i++) {
-      if (gameboard[y + i][x].hasShip !== null) {
-        throw new Error("Ship can't be placed here.");
-      }
-    }
-  } else {
-    if (x + length > COLUMNS) {
-      throw new Error("Ship can't be placed here.");
-    }
-    for (let i = 0; i < length; i++) {
-      if (gameboard[y][x + i].hasShip !== null) {
-        throw new Error("Ship can't be placed here.");
-      }
-    }
-  }
+  const positionCheck = isValidPosition(
+    currentShip,
+    x,
+    y,
+    isVertical,
+    gameboard
+  );
 
-  if (isVertical) {
-    for (let i = 0; i < length; i++) {
-      gameboard[y + i][x].hasShip = key;
+  if (positionCheck) {
+    if (isVertical) {
+      for (let i = 0; i < length; i++) {
+        gameboard[y + i][x].hasShip = key;
+      }
+    } else {
+      for (let i = 0; i < length; i++) {
+        gameboard[y][x + i].hasShip = key;
+      }
     }
   } else {
-    for (let i = 0; i < length; i++) {
-      gameboard[y][x + i].hasShip = key;
-    }
+    throw new Error("Ship can't be placed here.");
   }
+}
+
+function turnShip(vertical, ship) {
+  if (vertical) {
+    ship.vertical = true;
+  } else {
+    ship.vertical = false;
+  }
+  return ship;
+}
+
+function randomCoords() {
+  const x = Math.floor(Math.random() * 10);
+  const y = Math.floor(Math.random() * 10);
+  return { x, y };
+}
+
+function placeShipsRandom(placer) {
+  const shipList = placer.ships;
+  const gameboard = placer.gameboard;
+  const placedCoordinates = new Set();
+  shipList.forEach((ship) => {
+    const vertical = Math.random() >= 0.5;
+    ship = turnShip(vertical, ship);
+
+    function randomizer() {
+      const { x, y } = randomCoords();
+      if (placedCoordinates.has(`${x},${y}`)) {
+        return randomizer();
+      }
+      placedCoordinates.add(`${x},${y}`);
+      return { x, y };
+    }
+
+    const { x, y } = randomizer();
+
+    if (vertical) {
+      for (let i = 0; i < ship.length; i++) {
+        placedCoordinates.add(`${x},${y + i}`);
+      }
+    } else {
+      for (let i = 0; i < ship.length; i++) {
+        placedCoordinates.add(`${x + i},${y}`);
+      }
+    }
+    placeShips(gameboard, ship, x, y);
+  });
 }
 
 function receiveAttack(gameboard, x, y) {
@@ -98,4 +162,15 @@ function receiveAttack(gameboard, x, y) {
   }
 }
 
-export { makeShips, placeShips, receiveAttack, newGameboard, areAllShipsSunk };
+// console.log(player.gameboard);
+// placeShipsRandom(player);
+// console.log(player.gameboard);
+
+export {
+  makeShips,
+  placeShips,
+  receiveAttack,
+  newGameboard,
+  areAllShipsSunk,
+  placeShipsRandom,
+};
