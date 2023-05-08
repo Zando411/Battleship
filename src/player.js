@@ -1,13 +1,10 @@
-// define player
-
 import {
   areAllShipsSunk,
   makeShips,
   newGameboard,
   receiveAttack,
-} from './gameboard';
+} from './gameboard.js';
 
-// define computer
 function createPlayer() {
   const name = 'John';
   const prevMoves = new Set();
@@ -63,5 +60,4 @@ function createComputer() {
   return { name, gameboard, ships, takeTurn };
 }
 
-export const player = createPlayer();
-export const opponent = createComputer();
+export { createPlayer, createComputer };
