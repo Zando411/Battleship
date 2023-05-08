@@ -1,12 +1,11 @@
 import { createShip } from './ships.js';
+import { createPlayer, createComputer } from './player.js';
 
 const ROWS = 10;
 const COLUMNS = 10;
 
-const playerGameboard = newGameboard();
-const opponentGameboard = newGameboard();
-export const playerShips = makeShips();
-const opponentShips = makeShips();
+export const player = createPlayer();
+export const opponent = createComputer();
 
 function newGameboard() {
   const gameboard = new Array(ROWS);
@@ -84,10 +83,10 @@ function placeShips(gameboard, currentShip, x, y) {
 
 function receiveAttack(gameboard, x, y) {
   let ships;
-  if (gameboard === playerGameboard) {
-    ships = playerShips;
-  } else if (gameboard === opponentGameboard) {
-    ships = opponentShips;
+  if (gameboard === player.gameboard) {
+    ships = player.ships;
+  } else if (gameboard === opponent.gameboard) {
+    ships = opponent.ships;
   }
   if (gameboard[y][x].isHit === true) {
     throw new Error('This square has already been hit!');
@@ -99,12 +98,4 @@ function receiveAttack(gameboard, x, y) {
   }
 }
 
-export {
-  makeShips,
-  playerGameboard,
-  opponentGameboard,
-  placeShips,
-  receiveAttack,
-  newGameboard,
-  areAllShipsSunk,
-};
+export { makeShips, placeShips, receiveAttack, newGameboard, areAllShipsSunk };
