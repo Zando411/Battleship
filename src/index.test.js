@@ -2,11 +2,11 @@ import { createShip } from './ships';
 import {
   makeShips,
   placeShips,
-  player,
-  opponent,
   receiveAttack,
   areAllShipsSunk,
 } from './gameboard';
+
+import { player, opponent } from './testVariables.js';
 
 describe('createShip', () => {
   test('creates a ship object with the correct length', () => {
@@ -183,53 +183,47 @@ describe('receiveAttack', () => {
         player.gameboard[i][j].isHit = false;
       }
     }
-    for (let i = 0; i < opponent.gameboard.length; i++) {
-      for (let j = 0; j < opponent.gameboard[0].length; j++) {
-        opponent.gameboard[i][j].hasShip = null;
-        opponent.gameboard[i][j].isHit = false;
-      }
-    }
   });
 
   test('it should mark the square as hit', () => {
-    receiveAttack(player.gameboard, 3, 4);
+    receiveAttack(player, 3, 4);
     expect(player.gameboard[4][3].isHit).toBe(true);
   });
 
   test('it should throw an error if the square has already been hit', () => {
     player.gameboard[4][3].isHit = true;
-    expect(() => receiveAttack(player.gameboard, 3, 4)).toThrow(
+    expect(() => receiveAttack(player, 3, 4)).toThrow(
       'This square has already been hit!'
     );
   });
 
   test('it should call the hit method on the ship if there is one', () => {
     placeShips(player.gameboard, player.ships[0], 3, 4);
-    receiveAttack(player.gameboard, 3, 4);
+    receiveAttack(player, 3, 4);
     expect(player.ships[0].hits).toBe(1);
   });
 
   test('it should not call the hit method on the ship if there is not one', () => {
-    receiveAttack(player.gameboard, 3, 4);
+    receiveAttack(player, 3, 4);
     expect(player.ships[0].hits).toBe(0);
   });
 
   test('it should mark the ship as sunk if all of its squares have been hit', () => {
     placeShips(player.gameboard, player.ships[0], 3, 4);
-    receiveAttack(player.gameboard, 3, 4);
-    receiveAttack(player.gameboard, 4, 4);
-    receiveAttack(player.gameboard, 5, 4);
-    receiveAttack(player.gameboard, 6, 4);
-    receiveAttack(player.gameboard, 7, 4);
+    receiveAttack(player, 3, 4);
+    receiveAttack(player, 4, 4);
+    receiveAttack(player, 5, 4);
+    receiveAttack(player, 6, 4);
+    receiveAttack(player, 7, 4);
     expect(player.ships[0].sunk).toBe(true);
   });
 
   test('it should mark the ship as not sunk if not all of its squares have been hit', () => {
     placeShips(player.gameboard, player.ships[0], 3, 4);
-    receiveAttack(player.gameboard, 3, 4);
-    receiveAttack(player.gameboard, 4, 4);
-    receiveAttack(player.gameboard, 5, 4);
-    receiveAttack(player.gameboard, 6, 4);
+    receiveAttack(player, 3, 4);
+    receiveAttack(player, 4, 4);
+    receiveAttack(player, 5, 4);
+    receiveAttack(player, 6, 4);
     expect(player.ships[0].sunk).toBe(false);
   });
 
