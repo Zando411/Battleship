@@ -5,8 +5,8 @@ import {
   receiveAttack,
 } from './gameboard.js';
 
-function createPlayer() {
-  const name = 'John';
+function createPlayer(userName) {
+  const name = userName;
   const prevMoves = new Set();
   const gameboard = newGameboard();
   const ships = makeShips();
