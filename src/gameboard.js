@@ -1,11 +1,7 @@
 import { createShip } from './ships.js';
-import { createPlayer, createComputer } from './player.js';
 
 const ROWS = 10;
 const COLUMNS = 10;
-
-export const player = createPlayer();
-export const opponent = createComputer();
 
 function newGameboard() {
   const gameboard = new Array(ROWS);
@@ -113,9 +109,9 @@ function randomCoords() {
   return { x, y };
 }
 
-function placeShipsRandom(placer) {
-  const shipList = placer.ships;
-  const gameboard = placer.gameboard;
+function placeShipsRandom(user) {
+  const shipList = user.ships;
+  const gameboard = user.gameboard;
   const placedCoordinates = new Set();
   shipList.forEach((ship) => {
     const vertical = Math.random() >= 0.5;
@@ -151,13 +147,9 @@ function placeShipsRandom(placer) {
   });
 }
 
-function receiveAttack(gameboard, x, y) {
-  let ships;
-  if (gameboard === player.gameboard) {
-    ships = player.ships;
-  } else if (gameboard === opponent.gameboard) {
-    ships = opponent.ships;
-  }
+function receiveAttack(user, x, y) {
+  const ships = user.ships;
+  const gameboard = user.gameboard;
   if (gameboard[y][x].isHit === true) {
     throw new Error('This square has already been hit!');
   }
@@ -167,9 +159,6 @@ function receiveAttack(gameboard, x, y) {
     ships[shipKey].hit();
   }
 }
-
-placeShipsRandom(player);
-console.log(player.gameboard);
 
 export {
   makeShips,
