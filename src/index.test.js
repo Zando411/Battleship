@@ -4,6 +4,7 @@ import {
   placeShips,
   receiveAttack,
   areAllShipsSunk,
+  areAllShipsPlaced,
 } from './gameboard';
 
 import { player, opponent } from './testVariables.js';
@@ -255,6 +256,30 @@ describe('receiveAttack', () => {
         }
       });
       expect(areAllShipsSunk(ships)).toBe(false);
+    });
+  });
+
+  describe('areAllShipsPlaced', () => {
+    test('returns true if all ships are placed', () => {
+      const ships = makeShips();
+      ships.forEach((ship) => {
+        for (let i = 0; i < ship.length; i++) {
+          ship.isPlaced = true;
+        }
+      });
+      expect(areAllShipsPlaced(ships)).toBe(true);
+    });
+
+    test('returns false if not all ships are placed', () => {
+      const ships = makeShips();
+      ships.forEach((ship) => {
+        if (ship.key !== 0) {
+          for (let i = 0; i < ship.length; i++) {
+            ship.isPlaced = false;
+          }
+        }
+      });
+      expect(areAllShipsPlaced(ships)).toBe(false);
     });
   });
 });
