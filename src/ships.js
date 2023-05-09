@@ -1,5 +1,6 @@
 function createShip(key, name, length) {
   return {
+    isPlaced: false,
     key,
     name,
     length,

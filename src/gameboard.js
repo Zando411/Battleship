@@ -41,6 +41,10 @@ function areAllShipsSunk(ships) {
   return ships.every((ship) => ship.sunk);
 }
 
+function areAllShipsPlaced(ships) {
+  return ships.every((ship) => ship.isPlaced);
+}
+
 function isValidPosition(ship, x, y, isVertical, gameboard) {
   const length = ship.length;
 
@@ -88,6 +92,7 @@ function placeShips(gameboard, currentShip, x, y) {
       for (let i = 0; i < length; i++) {
         gameboard[y][x + i].hasShip = key;
       }
+      currentShip.isPlaced = true;
     }
   } else {
     throw new Error("Ship can't be placed here.");
@@ -167,4 +172,5 @@ export {
   newGameboard,
   areAllShipsSunk,
   placeShipsRandom,
+  areAllShipsPlaced,
 };

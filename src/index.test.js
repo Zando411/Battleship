@@ -86,6 +86,11 @@ describe('placeShips', () => {
     placeShips(player.gameboard, ship[2], 0, 0);
     expect(player.gameboard[0][0].hasShip).toBe(2);
   });
+  test('isPlaced is set properly', () => {
+    const ship = makeShips();
+    placeShips(player.gameboard, ship[2], 0, 0);
+    expect(ship[2].isPlaced).toBe(true);
+  });
   test('ships can place vertically', () => {
     const ship = makeShips();
     ship[2].vertical = true;
@@ -114,6 +119,8 @@ describe('placeShips', () => {
       placeShips(player.gameboard, ship1, 0, 0);
       placeShips(player.gameboard, ship2, 0, 0);
     }).toThrow("Ship can't be placed here.");
+    expect(ship1.isPlaced).toBe(true);
+    expect(ship2.isPlaced).toBe(false);
   });
 
   test('ships cannot overlap crossed', () => {
