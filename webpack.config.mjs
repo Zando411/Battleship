@@ -10,6 +10,7 @@ export default {
     filename: 'main.js',
     path: path.resolve(new URL(import.meta.url).pathname, '..', 'dist'),
   },
+  devtool: 'inline-source-map',
   module: {
     rules: [
       {
