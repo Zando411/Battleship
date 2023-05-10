@@ -149,6 +149,7 @@ function placeShipsRandom(user) {
       }
     }
     placeShips(gameboard, ship, x, y);
+    ship.isPlaced = true;
   });
 }
 
