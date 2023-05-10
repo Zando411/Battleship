@@ -85,7 +85,7 @@ body {
 
 main {
   display: grid;
-  grid-template-rows: 15% 60% 25%;
+  grid-template-rows: 12% 65% 23%;
   max-width: 1250px;
   margin: 0 auto;
   height: 100%;
@@ -122,11 +122,14 @@ h1#title {
 }
 
 #main > div > .gameboard {
-  width: 450px;
-  height: 450px;
+  width: 500px;
+  height: 500px;
   margin-top: 1.5rem;
   outline: 3px solid black;
   border-radius: 1px;
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(10, 1fr);
 }
 
 h2 {
