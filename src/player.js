@@ -1,4 +1,5 @@
 import {
+  areAllShipsPlaced,
   areAllShipsSunk,
   makeShips,
   newGameboard,
@@ -10,6 +11,7 @@ function createPlayer(userName) {
   const prevMoves = new Set();
   const gameboard = newGameboard();
   const ships = makeShips();
+  const allShipsPlaced = false;
 
   function getCoordinates() {
     x = prompt('enter X coordinate');
@@ -26,14 +28,15 @@ function createPlayer(userName) {
     const [x, y] = getCoordinates();
     receiveAttack(opponent.gameboard, x, y);
     if (areAllShipsSunk(opponent.ships)) {
-      console.log(`${name} wins!`);
+      console.log(`You win!`);
     }
   }
 
-  return { name, gameboard, ships, takeTurn };
+  return { name, gameboard, ships, takeTurn, allShipsPlaced };
 }
 
 function createComputer() {
+  const isComputer = true;
   const name = 'Computer';
   const prevMoves = new Set();
   const gameboard = newGameboard();
@@ -57,7 +60,7 @@ function createComputer() {
     }
   }
 
-  return { name, gameboard, ships, takeTurn };
+  return { name, gameboard, ships, takeTurn, isComputer };
 }
 
 export { createPlayer, createComputer };
