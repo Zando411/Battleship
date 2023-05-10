@@ -1,0 +1,183 @@
+:root {
+  --gray: #d9d9d9;
+}
+
+/* Box sizing rules */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/* Remove default margin */
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+/* Remove list styles on ul, ol elements with a list role, which suggests default styling will be removed */
+ul[role='list'],
+ol[role='list'] {
+  list-style: none;
+}
+
+/* Set core root defaults */
+html:focus-within {
+  scroll-behavior: smooth;
+}
+
+/* Set core body defaults */
+body {
+  min-height: 100vh;
+  text-rendering: optimizeSpeed;
+  line-height: 1;
+}
+
+/* A elements that don't have a class get default styles */
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+/* Make images easier to work with */
+img,
+picture {
+  max-width: 100%;
+  display: block;
+}
+
+/* Inherit fonts for inputs and buttons */
+input,
+button,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Remove all animations, transitions and smooth scroll for people that prefer not to see them */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* start */
+
+body {
+  height: 100vh;
+}
+
+main {
+  display: grid;
+  grid-template-rows: 15% 60% 25%;
+  max-width: 1250px;
+  margin: 0 auto;
+  height: 100%;
+}
+
+div.section {
+  width: 100%;
+  background-color: coral;
+}
+
+#header {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+}
+
+h1#title {
+  font-size: 96px;
+  height: auto;
+}
+
+#main {
+  display: flex;
+  justify-content: space-between;
+}
+
+#main > div {
+  height: 100%;
+  width: 600px;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+}
+
+#main > div > .gameboard {
+  width: 450px;
+  height: 450px;
+  margin-top: 1.5rem;
+  outline: 3px solid black;
+  border-radius: 1px;
+}
+
+h2 {
+  font-size: 48px;
+}
+
+#ships {
+  padding-top: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  gap: 2rem;
+}
+
+#playerShips {
+  display: flex;
+  gap: 1rem;
+}
+
+.ship {
+  display: flex;
+  outline: 2px solid black;
+}
+.gridPart {
+  width: 50px;
+  height: 50px;
+  border: 2px solid black;
+}
+#carrier {
+  height: 50px;
+  width: 250px;
+  background-color: var(--gray);
+}
+#battleship {
+  height: 50px;
+  width: 200px;
+  background-color: var(--gray);
+}
+#cruiser {
+  height: 50px;
+  width: 150px;
+  background-color: var(--gray);
+}
+.destroyer {
+  height: 50px;
+  width: 100px;
+  background-color: var(--gray);
+}
+.submarine {
+  height: 50px;
+  width: 50px;
+  background-color: var(--gray);
+}
