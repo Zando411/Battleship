@@ -45,6 +45,54 @@ function areAllShipsPlaced(ships) {
   return ships.every((ship) => ship.isPlaced);
 }
 
+function hasAdjacentShip(x, y, gameboard) {
+  // Check the square above
+  if (y > 0 && gameboard[y - 1][x].hasShip !== null) {
+    return true;
+  }
+
+  // Check the square below
+  if (y < ROWS - 1 && gameboard[y + 1][x].hasShip !== null) {
+    return true;
+  }
+
+  // Check the square to the left
+  if (x > 0 && gameboard[y][x - 1].hasShip !== null) {
+    return true;
+  }
+
+  // Check the square to the right
+  if (x < COLUMNS - 1 && gameboard[y][x + 1].hasShip !== null) {
+    return true;
+  }
+
+  // Check the top-left corner
+  if (y > 0 && x > 0 && gameboard[y - 1][x - 1].hasShip !== null) {
+    return true;
+  }
+
+  // Check the top-right corner
+  if (y > 0 && x < COLUMNS - 1 && gameboard[y - 1][x + 1].hasShip !== null) {
+    return true;
+  }
+
+  // Check the bottom-left corner
+  if (y < ROWS - 1 && x > 0 && gameboard[y + 1][x - 1].hasShip !== null) {
+    return true;
+  }
+
+  // Check the bottom-right corner
+  if (
+    y < ROWS - 1 &&
+    x < COLUMNS - 1 &&
+    gameboard[y + 1][x + 1].hasShip !== null
+  ) {
+    return true;
+  }
+
+  return false;
+}
+
 function isValidPosition(ship, x, y, isVertical, gameboard) {
   const length = ship.length;
 
@@ -52,8 +100,10 @@ function isValidPosition(ship, x, y, isVertical, gameboard) {
     if (y + length > ROWS) {
       return false;
     }
+
     for (let i = 0; i < length; i++) {
-      if (gameboard[y + i][x].hasShip !== null) {
+      // check the square above, below, and around the ship
+      if (hasAdjacentShip(x, y + i, gameboard)) {
         return false;
       }
     }
@@ -61,12 +111,15 @@ function isValidPosition(ship, x, y, isVertical, gameboard) {
     if (x + length > COLUMNS) {
       return false;
     }
+
     for (let i = 0; i < length; i++) {
-      if (gameboard[y][x + i].hasShip !== null) {
+      // check the square to the left, right, and around the ship
+      if (hasAdjacentShip(x + i, y, gameboard)) {
         return false;
       }
     }
   }
+
   return true;
 }
 
