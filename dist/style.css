@@ -153,6 +153,7 @@ h2 {
 .ship {
   display: flex;
   outline: 2px solid black;
+  background-color: var(--gray);
 }
 .gridPart {
   width: 50px;
@@ -162,25 +163,20 @@ h2 {
 #carrier {
   height: 50px;
   width: 250px;
-  background-color: var(--gray);
 }
 #battleship {
   height: 50px;
   width: 200px;
-  background-color: var(--gray);
 }
 #cruiser {
   height: 50px;
   width: 150px;
-  background-color: var(--gray);
 }
 .destroyer {
   height: 50px;
   width: 100px;
-  background-color: var(--gray);
 }
 .submarine {
   height: 50px;
   width: 50px;
-  background-color: var(--gray);
 }

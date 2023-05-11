@@ -37,4 +37,18 @@ function populateOpponentGrid(array) {
   });
 }
 
-export { populateGrids };
+function displayShips(ships) {
+  const playerShips = document.getElementById('playerShips');
+  ships.forEach((ship) => {
+    const newShip = document.createElement('div');
+    newShip.classList.add('ship');
+    for (let i = 0; i < ship.length; i++) {
+      const gridPart = document.createElement('div');
+      gridPart.classList.add('gridPart');
+      newShip.appendChild(gridPart);
+    }
+    playerShips.appendChild(newShip);
+  });
+}
+
+export { populateGrids, displayShips };
