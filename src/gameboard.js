@@ -123,7 +123,7 @@ function isValidPosition(ship, x, y, isVertical, gameboard) {
   return true;
 }
 
-function placeShips(gameboard, currentShip, x, y) {
+function placeShip(gameboard, currentShip, x, y) {
   const key = currentShip.key;
   const length = currentShip.length;
   const isVertical = currentShip.vertical;
@@ -201,7 +201,7 @@ function placeShipsRandom(user) {
         placedCoordinates.add(`${x + i},${y}`);
       }
     }
-    placeShips(gameboard, ship, x, y);
+    placeShip(gameboard, ship, x, y);
     ship.isPlaced = true;
   });
 }
@@ -221,7 +221,7 @@ function receiveAttack(user, x, y) {
 
 export {
   makeShips,
-  placeShips,
+  placeShip,
   receiveAttack,
   newGameboard,
   areAllShipsSunk,

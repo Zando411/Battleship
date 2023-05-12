@@ -1,7 +1,7 @@
 import { createShip } from './ships';
 import {
   makeShips,
-  placeShips,
+  placeShip,
   receiveAttack,
   areAllShipsSunk,
   areAllShipsPlaced,
@@ -66,7 +66,7 @@ describe('makeShips', () => {
   });
 });
 
-describe('placeShips', () => {
+describe('placeShip', () => {
   beforeEach(() => {
     for (let i = 0; i < player.gameboard.length; i++) {
       for (let j = 0; j < player.gameboard[0].length; j++) {
@@ -84,32 +84,32 @@ describe('placeShips', () => {
 
   test('ships can place horizontally', () => {
     const ship = makeShips();
-    placeShips(player.gameboard, ship[2], 0, 0);
+    placeShip(player.gameboard, ship[2], 0, 0);
     expect(player.gameboard[0][0].hasShip).toBe(2);
   });
   test('isPlaced is set properly', () => {
     const ship = makeShips();
-    placeShips(player.gameboard, ship[2], 0, 0);
+    placeShip(player.gameboard, ship[2], 0, 0);
     expect(ship[2].isPlaced).toBe(true);
   });
   test('ships can place vertically', () => {
     const ship = makeShips();
     ship[2].vertical = true;
-    placeShips(player.gameboard, ship[2], 0, 0);
+    placeShip(player.gameboard, ship[2], 0, 0);
     expect(player.gameboard[0][0].hasShip).toBe(2);
   });
 
   test('ships cannot be placed out of bounds', () => {
     const ship = makeShips();
     expect(() => {
-      placeShips(player.gameboard, ship[0], 8, 8);
+      placeShip(player.gameboard, ship[0], 8, 8);
     }).toThrow("Ship can't be placed here.");
   });
   test('ships cannot be placed out of bounds vertical', () => {
     const ship = makeShips();
     ship[0].vertical = true;
     expect(() => {
-      placeShips(player.gameboard, ship[0], 8, 8);
+      placeShip(player.gameboard, ship[0], 8, 8);
     }).toThrow("Ship can't be placed here.");
   });
 
@@ -117,8 +117,8 @@ describe('placeShips', () => {
     const ship1 = makeShips()[0];
     const ship2 = makeShips()[1];
     expect(() => {
-      placeShips(player.gameboard, ship1, 0, 0);
-      placeShips(player.gameboard, ship2, 0, 0);
+      placeShip(player.gameboard, ship1, 0, 0);
+      placeShip(player.gameboard, ship2, 0, 0);
     }).toThrow("Ship can't be placed here.");
     expect(ship1.isPlaced).toBe(true);
     expect(ship2.isPlaced).toBe(false);
@@ -129,34 +129,34 @@ describe('placeShips', () => {
     const ship2 = makeShips()[1];
     ship2.vertical = true;
     expect(() => {
-      placeShips(player.gameboard, ship1, 1, 1);
-      placeShips(player.gameboard, ship2, 1, 0);
+      placeShip(player.gameboard, ship1, 1, 1);
+      placeShip(player.gameboard, ship2, 1, 0);
     }).toThrow("Ship can't be placed here.");
   });
 
   test('ships can place horizontally', () => {
     const ship = makeShips();
-    placeShips(opponent.gameboard, ship[2], 0, 0);
+    placeShip(opponent.gameboard, ship[2], 0, 0);
     expect(opponent.gameboard[0][0].hasShip).toBe(2);
   });
   test('ships can place vertically', () => {
     const ship = makeShips();
     ship[2].vertical = true;
-    placeShips(opponent.gameboard, ship[2], 0, 0);
+    placeShip(opponent.gameboard, ship[2], 0, 0);
     expect(opponent.gameboard[0][0].hasShip).toBe(2);
   });
 
   test('ships cannot be placed out of bounds', () => {
     const ship = makeShips();
     expect(() => {
-      placeShips(opponent.gameboard, ship[0], 8, 8);
+      placeShip(opponent.gameboard, ship[0], 8, 8);
     }).toThrow("Ship can't be placed here.");
   });
   test('ships cannot be placed out of bounds vertical', () => {
     const ship = makeShips();
     ship[0].vertical = true;
     expect(() => {
-      placeShips(opponent.gameboard, ship[0], 8, 8);
+      placeShip(opponent.gameboard, ship[0], 8, 8);
     }).toThrow("Ship can't be placed here.");
   });
 
@@ -164,8 +164,8 @@ describe('placeShips', () => {
     const ship1 = makeShips()[0];
     const ship2 = makeShips()[1];
     expect(() => {
-      placeShips(opponent.gameboard, ship1, 0, 0);
-      placeShips(opponent.gameboard, ship2, 0, 0);
+      placeShip(opponent.gameboard, ship1, 0, 0);
+      placeShip(opponent.gameboard, ship2, 0, 0);
     }).toThrow("Ship can't be placed here.");
   });
 
@@ -174,8 +174,8 @@ describe('placeShips', () => {
     const ship2 = makeShips()[1];
     ship2.vertical = true;
     expect(() => {
-      placeShips(player.gameboard, ship1, 1, 1);
-      placeShips(player.gameboard, ship2, 1, 0);
+      placeShip(player.gameboard, ship1, 1, 1);
+      placeShip(player.gameboard, ship2, 1, 0);
     }).toThrow("Ship can't be placed here.");
   });
 });
@@ -206,7 +206,7 @@ describe('receiveAttack', () => {
   });
 
   test('it should call the hit method on the ship if there is one', () => {
-    placeShips(player.gameboard, player.ships[0], 3, 4);
+    placeShip(player.gameboard, player.ships[0], 3, 4);
     receiveAttack(player, 3, 4);
     expect(player.ships[0].hits).toBe(1);
   });
@@ -217,7 +217,7 @@ describe('receiveAttack', () => {
   });
 
   test('it should mark the ship as sunk if all of its squares have been hit', () => {
-    placeShips(player.gameboard, player.ships[0], 3, 4);
+    placeShip(player.gameboard, player.ships[0], 3, 4);
     receiveAttack(player, 3, 4);
     receiveAttack(player, 4, 4);
     receiveAttack(player, 5, 4);
@@ -227,7 +227,7 @@ describe('receiveAttack', () => {
   });
 
   test('it should mark the ship as not sunk if not all of its squares have been hit', () => {
-    placeShips(player.gameboard, player.ships[0], 3, 4);
+    placeShip(player.gameboard, player.ships[0], 3, 4);
     receiveAttack(player, 3, 4);
     receiveAttack(player, 4, 4);
     receiveAttack(player, 5, 4);
