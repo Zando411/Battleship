@@ -5,34 +5,65 @@ function populateGrids(player1, player2) {
 
 function populatePlayerGrid(array) {
   const grid = document.getElementById('playerGameboard');
+  let j = 0;
   array.forEach((row) => {
+    let i = 0;
+
     row.forEach((cell) => {
       const cellElement = document.createElement('div');
       cellElement.classList.add('gridPart');
       cellElement.dataset.contains = cell.hasShip;
       cellElement.dataset.cellHit = cell.isHit;
-      //   cellElement.addEventListener('click', () => {
-      //      handle click event
-      //   });
+      cellElement.dataset.y = j;
+      cellElement.dataset.x = i;
+      if (cell.hasShip !== null) {
+        cellElement.style.backgroundColor = '#B0BEC5';
+      }
+      cellElement.addEventListener('click', (e) => {
+        console.log(e.target.dataset.x, e.target.dataset.y);
+      });
       grid.appendChild(cellElement);
+      i++;
     });
+    j++;
   });
 }
 function populateOpponentGrid(array) {
   const grid2 = document.getElementById('opponentGameboard');
+  let j = 0;
   array.forEach((row) => {
+    let i = 0;
+
     row.forEach((cell) => {
       const cellElement = document.createElement('div');
       cellElement.classList.add('gridPart');
       cellElement.dataset.contains = cell.hasShip;
       cellElement.dataset.cellHit = cell.isHit;
+      cellElement.dataset.y = j;
+      cellElement.dataset.x = i;
       if (cell.hasShip !== null) {
-        cellElement.style.backgroundColor = '#d9d9d9';
+        cellElement.style.backgroundColor = '#B0BEC5';
       }
       cellElement.addEventListener('click', (e) => {
-        console.log(e.target.dataset.contains);
+        console.log(e.target.dataset.x, e.target.dataset.y);
       });
       grid2.appendChild(cellElement);
+      i++;
+    });
+    j++;
+  });
+}
+
+function addDragability() {
+  const draggables = document.querySelectorAll('.draggable');
+  const containers = document.querySelectorAll('.container');
+
+  draggables.forEach((draggable) => {
+    draggable.addEventListener('dragstart', () => {
+      draggable.classList.add('dragging');
+    });
+    draggable.addEventListener('dragend', () => {
+      draggable.classList.remove('dragging');
     });
   });
 }
@@ -42,6 +73,9 @@ function displayShips(ships) {
   ships.forEach((ship) => {
     const newShip = document.createElement('div');
     newShip.classList.add('ship');
+    newShip.classList.add('draggable');
+    newShip.dataset.shipKey = ship.key;
+    newShip.setAttribute('draggable', true);
     for (let i = 0; i < ship.length; i++) {
       const gridPart = document.createElement('div');
       gridPart.classList.add('gridPart');
@@ -49,6 +83,7 @@ function displayShips(ships) {
     }
     playerShips.appendChild(newShip);
   });
+  addDragability();
 }
 
-export { populateGrids, displayShips };
+export { populateGrids, displayShips, addDragability };
