@@ -1,5 +1,5 @@
 :root {
-  --gray: #d9d9d9;
+  --gray: #b0bec5;
 }
 
 /* Box sizing rules */
@@ -81,6 +81,7 @@ select {
 
 body {
   height: 100vh;
+  background-color: #fff;
 }
 
 main {
@@ -93,7 +94,6 @@ main {
 
 div.section {
   width: 100%;
-  background-color: coral;
 }
 
 #header {
@@ -124,12 +124,13 @@ h1#title {
 #main > div > .gameboard {
   width: 500px;
   height: 500px;
-  margin-top: 1.5rem;
+  margin-top: 1rem;
   outline: 3px solid black;
   border-radius: 1px;
   display: grid;
   grid-template-columns: repeat(10, 1fr);
   grid-template-rows: repeat(10, 1fr);
+  background-color: #2b4e62;
 }
 
 h2 {
@@ -142,15 +143,24 @@ h2 {
   flex-direction: column;
   justify-content: start;
   align-items: center;
-  gap: 2rem;
-}
-
-#playerShips {
-  display: flex;
   gap: 1rem;
 }
 
+#playerShips {
+  height: 75px;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.draggable.dragging {
+  opacity: 10%;
+}
+
 .ship {
+  height: 50px;
   display: flex;
   outline: 2px solid black;
   background-color: var(--gray);
