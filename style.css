@@ -159,13 +159,27 @@ h2 {
   opacity: 10%;
 }
 
+.draggable {
+  cursor: pointer;
+}
+
 .ship {
   height: 50px;
   display: flex;
   outline: 2px solid black;
   background-color: var(--gray);
 }
+
+.ship.placed {
+  opacity: 30%;
+}
+
 .gridPart {
+  width: 50px;
+  height: 50px;
+  border: 2px solid black;
+}
+.shipPart {
   width: 50px;
   height: 50px;
   border: 2px solid black;
