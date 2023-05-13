@@ -8,13 +8,18 @@ function clearContainer(containerID) {
 }
 
 function populateGrids(player1, player2) {
-  populatePlayerGrid(player1);
+  initalizePlayerGrid(player1);
   populateOpponentGrid(player2);
 }
 
-function populatePlayerGrid(user) {
-  clearContainer('playerGameboard');
+function initalizePlayerGrid(user) {
+  populatePlayerGrid(user);
   addGameboardEventListeners(user);
+}
+
+function populatePlayerGrid(user) {
+  console.log(user.gameboard);
+  clearContainer('playerGameboard');
   const grid = document.getElementById('playerGameboard');
   let j = 0;
   user.gameboard.forEach((row) => {
@@ -66,7 +71,7 @@ function populateOpponentGrid(user) {
   });
 }
 
-export function addGameboardEventListeners(user) {
+function addGameboardEventListeners(user) {
   const gameboard = document.getElementById('playerGameboard');
 
   gameboard.addEventListener('dragover', (event) => {
