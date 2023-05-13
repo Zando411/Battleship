@@ -1,14 +1,7 @@
 import { placeShip } from './gameboard.js';
 
-function clearPlayerGrid(user) {
-  const div = document.getElementById(`playerGameboard`);
-  while (div.firstChild) {
-    div.removeChild(div.firstChild);
-  }
-}
-
-function clearOpponentGrid(user) {
-  const div = document.getElementById(`opponentGameboard`);
+function clearContainer(containerID) {
+  const div = document.getElementById(containerID);
   while (div.firstChild) {
     div.removeChild(div.firstChild);
   }
@@ -20,7 +13,7 @@ function populateGrids(player1, player2) {
 }
 
 function populatePlayerGrid(user) {
-  clearPlayerGrid(user);
+  clearContainer('playerGameboard');
   addGameboardEventListeners(user);
   const grid = document.getElementById('playerGameboard');
   let j = 0;
@@ -47,7 +40,7 @@ function populatePlayerGrid(user) {
   });
 }
 function populateOpponentGrid(user) {
-  clearOpponentGrid(user);
+  clearContainer('opponentGameboard');
   const grid2 = document.getElementById('opponentGameboard');
   let j = 0;
   user.gameboard.forEach((row) => {
@@ -90,13 +83,9 @@ export function addGameboardEventListeners(user) {
     const x = Number(cell.dataset.x);
     const y = Number(cell.dataset.y);
     const shipKey = Number(event.dataTransfer.getData('shipKey'));
-
-    console.log(typeof x);
-    console.log(typeof y);
-    console.log(typeof shipKey);
-    console.log(user.gameboard, user.ships[shipKey], x, y);
     placeShip(user.gameboard, user.ships[shipKey], x, y);
     populatePlayerGrid(user);
+    displayShips(user.ships);
   });
 }
 
@@ -115,14 +104,22 @@ function addDragability() {
 }
 
 function displayShips(ships) {
+  clearContainer('playerShips');
   const playerShips = document.getElementById('playerShips');
   ships.forEach((ship) => {
     const newShip = document.createElement('div');
     newShip.classList.add('ship');
-    newShip.classList.add('draggable');
+
     newShip.dataset.shipKey = ship.key;
     newShip.dataset.isPlaced = ship.isPlaced;
-    newShip.setAttribute('draggable', true);
+
+    if (ship.isPlaced === true) {
+      newShip.setAttribute('draggable', false);
+      newShip.classList.add('placed');
+    } else {
+      newShip.setAttribute('draggable', true);
+      newShip.classList.add('draggable');
+    }
     for (let i = 0; i < ship.length; i++) {
       const shipPart = document.createElement('div');
       shipPart.classList.add('shipPart');
