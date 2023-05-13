@@ -1,12 +1,30 @@
-function populateGrids(player1, player2) {
-  populatePlayerGrid(player1.gameboard);
-  populateOpponentGrid(player2.gameboard);
+import { placeShip } from './gameboard.js';
+
+function clearPlayerGrid(user) {
+  const div = document.getElementById(`playerGameboard`);
+  while (div.firstChild) {
+    div.removeChild(div.firstChild);
+  }
 }
 
-function populatePlayerGrid(array) {
+function clearOpponentGrid(user) {
+  const div = document.getElementById(`opponentGameboard`);
+  while (div.firstChild) {
+    div.removeChild(div.firstChild);
+  }
+}
+
+function populateGrids(player1, player2) {
+  populatePlayerGrid(player1);
+  populateOpponentGrid(player2);
+}
+
+function populatePlayerGrid(user) {
+  clearPlayerGrid(user);
+  addGameboardEventListeners(user);
   const grid = document.getElementById('playerGameboard');
   let j = 0;
-  array.forEach((row) => {
+  user.gameboard.forEach((row) => {
     let i = 0;
 
     row.forEach((cell) => {
@@ -28,10 +46,11 @@ function populatePlayerGrid(array) {
     j++;
   });
 }
-function populateOpponentGrid(array) {
+function populateOpponentGrid(user) {
+  clearOpponentGrid(user);
   const grid2 = document.getElementById('opponentGameboard');
   let j = 0;
-  array.forEach((row) => {
+  user.gameboard.forEach((row) => {
     let i = 0;
 
     row.forEach((cell) => {
@@ -54,12 +73,39 @@ function populateOpponentGrid(array) {
   });
 }
 
+export function addGameboardEventListeners(user) {
+  const gameboard = document.getElementById('playerGameboard');
+
+  gameboard.addEventListener('dragover', (event) => {
+    event.preventDefault();
+  });
+
+  gameboard.addEventListener('dragenter', (event) => {
+    event.preventDefault();
+  });
+
+  gameboard.addEventListener('drop', (event) => {
+    event.preventDefault();
+    const cell = event.target;
+    const x = Number(cell.dataset.x);
+    const y = Number(cell.dataset.y);
+    const shipKey = Number(event.dataTransfer.getData('shipKey'));
+
+    console.log(typeof x);
+    console.log(typeof y);
+    console.log(typeof shipKey);
+    console.log(user.gameboard, user.ships[shipKey], x, y);
+    placeShip(user.gameboard, user.ships[shipKey], x, y);
+    populatePlayerGrid(user);
+  });
+}
+
 function addDragability() {
   const draggables = document.querySelectorAll('.draggable');
-  const containers = document.querySelectorAll('.container');
 
   draggables.forEach((draggable) => {
-    draggable.addEventListener('dragstart', () => {
+    draggable.addEventListener('dragstart', (event) => {
+      event.dataTransfer.setData('shipKey', event.target.dataset.shipKey);
       draggable.classList.add('dragging');
     });
     draggable.addEventListener('dragend', () => {
@@ -75,11 +121,12 @@ function displayShips(ships) {
     newShip.classList.add('ship');
     newShip.classList.add('draggable');
     newShip.dataset.shipKey = ship.key;
+    newShip.dataset.isPlaced = ship.isPlaced;
     newShip.setAttribute('draggable', true);
     for (let i = 0; i < ship.length; i++) {
-      const gridPart = document.createElement('div');
-      gridPart.classList.add('gridPart');
-      newShip.appendChild(gridPart);
+      const shipPart = document.createElement('div');
+      shipPart.classList.add('shipPart');
+      newShip.appendChild(shipPart);
     }
     playerShips.appendChild(newShip);
   });
