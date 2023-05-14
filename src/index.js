@@ -1,24 +1,18 @@
-import { createPlayer } from './player.js';
-import { placeShipsRandom } from './gameboard.js';
-
-function generatePlayerGrid(array) {
-  const grid = document.getElementById('playerGameboard');
-  array.forEach((row) => {
-    row.forEach((cell) => {
-      const cellElement = document.createElement('div');
-      cellElement.classList.add('gridPart');
-      cellElement.dataset.contains = cell.hasShip;
-      cellElement.dataset.cellHit = cell.isHit;
-      //   cellElement.addEventListener('click', () => {
-      //      handle click event
-      //   });
-      grid.appendChild(cellElement);
-    });
-  });
-}
+import { createComputer, createPlayer } from './player.js';
+import { placeShip, placeShipsRandom } from './gameboard.js';
+import {
+  addGameboardEventListeners,
+  displayShips,
+  populateGrids,
+} from './dom.js';
 
 const player = createPlayer();
-placeShipsRandom(player);
-generatePlayerGrid(player.gameboard);
-console.log(player.ships);
-console.log(player.gameboard);
+const opponent = createComputer();
+placeShipsRandom(opponent);
+placeShip(player.gameboard, player.ships[1], 3, 3);
+populateGrids(player, opponent);
+displayShips(player.ships);
+
+// document.addEventListener('keydown', () => {
+//   console.log('success');
+// });
