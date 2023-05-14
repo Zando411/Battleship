@@ -71,6 +71,8 @@ function populateOpponentGrid(user) {
   });
 }
 
+let selectedPart;
+
 function addGameboardEventListeners(user) {
   const gameboard = document.getElementById('playerGameboard');
 
@@ -85,9 +87,13 @@ function addGameboardEventListeners(user) {
   gameboard.addEventListener('drop', (event) => {
     event.preventDefault();
     const cell = event.target;
-    const x = Number(cell.dataset.x);
-    const y = Number(cell.dataset.y);
     const shipKey = Number(event.dataTransfer.getData('shipKey'));
+    const isVertical = user.ships[shipKey].vertical;
+    console.log(isVertical);
+    console.log(selectedPart);
+    const x = Number(cell.dataset.x - (isVertical ? 0 : selectedPart));
+    const y = Number(cell.dataset.y - (isVertical ? selectedPart : 0));
+    console.log(x, y);
     placeShip(user.gameboard, user.ships[shipKey], x, y);
     populatePlayerGrid(user);
     displayShips(user.ships);
@@ -105,7 +111,20 @@ function addDragability() {
     draggable.addEventListener('dragend', () => {
       draggable.classList.remove('dragging');
     });
+    draggable.addEventListener('mousedown', (e) => {
+      selectedPart = Number(e.target.dataset.partIndex);
+      console.log(selectedPart);
+    });
   });
+
+  // document.addEventListener('keydown', (event) => {
+  //   const draggingElement = document.querySelector('.dragging');
+  //   if (event.key === 'r' && draggingElement) {
+  //     const shipKey = draggingElement.dataset.shipKey;
+  //     console.log(shipKey);
+  //     // do something with the shipKey data...
+  //   }
+  // });
 }
 
 function displayShips(ships) {
@@ -128,6 +147,7 @@ function displayShips(ships) {
     for (let i = 0; i < ship.length; i++) {
       const shipPart = document.createElement('div');
       shipPart.classList.add('shipPart');
+      shipPart.dataset.partIndex = i;
       newShip.appendChild(shipPart);
     }
     playerShips.appendChild(newShip);
