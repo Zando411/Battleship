@@ -4,14 +4,20 @@ import {
   makeShips,
   newGameboard,
   receiveAttack,
+  placeShipsRandom,
 } from './gameboard.js';
 
-function createPlayer(userName) {
+function createPlayer() {
+  let userName;
   const name = userName;
   const prevMoves = new Set();
   const gameboard = newGameboard();
   const ships = makeShips();
   const allShipsPlaced = false;
+
+  function setName() {
+    let userName = prompt('enter your name');
+  }
 
   function getCoordinates() {
     x = prompt('enter X coordinate');
@@ -32,7 +38,19 @@ function createPlayer(userName) {
     }
   }
 
-  return { name, gameboard, ships, takeTurn, allShipsPlaced };
+  function placeShips() {
+    placeShipsRandom(this);
+  }
+
+  return {
+    name,
+    gameboard,
+    ships,
+    takeTurn,
+    allShipsPlaced,
+    setName,
+    placeShips,
+  };
 }
 
 function createComputer() {
@@ -60,7 +78,11 @@ function createComputer() {
     }
   }
 
-  return { name, gameboard, ships, takeTurn, isComputer };
+  function placeShips() {
+    placeShipsRandom(this);
+  }
+
+  return { name, gameboard, ships, takeTurn, isComputer, placeShips };
 }
 
 export { createPlayer, createComputer };
