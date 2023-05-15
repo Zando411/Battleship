@@ -18,13 +18,19 @@
           <h2><span id="playerName">Player's</span> Board</h2>
           <div class="gameboard" id="playerGameboard"></div>
         </div>
+
         <div id="opponent-board" class="board-wrapper">
           <h2>Opponent's Board</h2>
           <div class="gameboard" id="opponentGameboard"></div>
         </div>
       </div>
       <div class="section" id="ships">
-        <h2>Ships:</h2>
+        <div id="shipButtons">
+          <h2>Ships:</h2>
+          <button>Clear Board</button>
+          <input type="text" placeholder="enter name" id="nameInput" />
+          <button onclick="startGame()">Start Game</button>
+        </div>
         <div id="playerShips" class="container"></div>
       </div>
     </main>
