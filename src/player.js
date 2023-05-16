@@ -8,16 +8,11 @@ import {
 } from './gameboard.js';
 
 function createPlayer() {
-  let userName;
-  const name = userName;
+  let name = 'Player';
   const prevMoves = new Set();
   const gameboard = newGameboard();
   const ships = makeShips();
   let allShipsPlaced = false;
-
-  function setName() {
-    let userName = prompt('enter your name');
-  }
 
   function getCoordinates() {
     x = prompt('enter X coordinate');
@@ -57,7 +52,6 @@ function createPlayer() {
     ships,
     takeTurn,
     allShipsPlaced,
-    setName,
     placeShips,
     validateAllShipsPlaced,
   };
