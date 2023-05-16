@@ -13,7 +13,7 @@ function createPlayer() {
   const prevMoves = new Set();
   const gameboard = newGameboard();
   const ships = makeShips();
-  const allShipsPlaced = false;
+  let allShipsPlaced = false;
 
   function setName() {
     let userName = prompt('enter your name');
@@ -42,6 +42,15 @@ function createPlayer() {
     placeShipsRandom(this);
   }
 
+  function validateAllShipsPlaced() {
+    const placed = areAllShipsPlaced(ships);
+    if (placed === true) {
+      allShipsPlaced = true;
+    } else {
+      throw new Error('Please place all ships on the board');
+    }
+  }
+
   return {
     name,
     gameboard,
@@ -50,6 +59,7 @@ function createPlayer() {
     allShipsPlaced,
     setName,
     placeShips,
+    validateAllShipsPlaced,
   };
 }
 
