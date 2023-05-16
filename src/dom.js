@@ -1,4 +1,6 @@
+import { startGame } from './index.js';
 import { placeShip } from './gameboard.js';
+import { player } from './index.js';
 
 function clearContainer(containerID) {
   const div = document.getElementById(containerID);
@@ -72,6 +74,8 @@ function populateOpponentGrid(user) {
 }
 
 let selectedPart;
+let shipKey;
+let rWasPressed = false;
 
 function addGameboardEventListeners(user) {
   const gameboard = document.getElementById('playerGameboard');
@@ -87,7 +91,6 @@ function addGameboardEventListeners(user) {
   gameboard.addEventListener('drop', (event) => {
     event.preventDefault();
     const cell = event.target;
-    const shipKey = Number(event.dataTransfer.getData('shipKey'));
     const isVertical = user.ships[shipKey].vertical;
     console.log(isVertical);
     console.log(selectedPart);
@@ -105,7 +108,7 @@ function addDragability() {
 
   draggables.forEach((draggable) => {
     draggable.addEventListener('dragstart', (event) => {
-      event.dataTransfer.setData('shipKey', event.target.dataset.shipKey);
+      shipKey = event.target.dataset.shipKey;
       draggable.classList.add('dragging');
     });
     draggable.addEventListener('dragend', () => {
@@ -115,16 +118,16 @@ function addDragability() {
       selectedPart = Number(e.target.dataset.partIndex);
       console.log(selectedPart);
     });
+    //   draggable.addEventListener('drag', (event) => {
+    //     console.log(rWasPressed);
+    //   });
+    // });
+    // document.addEventListener('keydown', (event) => {
+    //   if (event.key === 'r') {
+    //     rWasPressed = !rWasPressed;
+    //     console.log(rWasPressed);
+    //   }
   });
-
-  // document.addEventListener('keydown', (event) => {
-  //   const draggingElement = document.querySelector('.dragging');
-  //   if (event.key === 'r' && draggingElement) {
-  //     const shipKey = draggingElement.dataset.shipKey;
-  //     console.log(shipKey);
-  //     // do something with the shipKey data...
-  //   }
-  // });
 }
 
 function displayShips(ships) {
@@ -155,4 +158,16 @@ function displayShips(ships) {
   addDragability();
 }
 
-export { populateGrids, displayShips, addDragability };
+function addButtonEventListeners() {
+  const clearBtn = document.getElementById('clearBoard');
+  const startBtn = document.getElementById('startGame');
+
+  startBtn.addEventListener('click', () => {
+    const playerName = document.getElementById('nameInput').value;
+    console.log(typeof playerName);
+    player.name = playerName;
+    startGame();
+  });
+}
+
+export { populateGrids, displayShips, addDragability, addButtonEventListeners };
