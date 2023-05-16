@@ -12,34 +12,5 @@ import { displayShips, populateGrids } from './dom.js';
 import { areAllShipsPlaced, makeShips, placeShipsRandom } from './gameboard.js';
 import { createComputer, createPlayer } from './player.js';
 
-function appLoad() {
-  const player = createPlayer();
-  const opponent = createComputer();
-  player.setName();
-  opponent.placeShips();
-  displayShips(player.ships);
-  player.placeShips();
-  populateGrids(player, opponent);
-}
 
-function startGame() {
-  validateAllShipsPlaced(user);
-  gameLoop(player, opponent);
-}
-
-function initalizeShips(user1, user2) {
-  userInitializeShips(user1);
-  userInitializeShips(user2);
-}
-
-function validateAllShipsPlaced(user) {
-  const ships = user.ships;
-  const placed = areAllShipsPlaced(ships);
-  if (placed === true) {
-    user.allShipsPlaced = true;
-  } else {
-    throw new Error('Please place all ships on the board');
-  }
-}
-
-export { appLoad };
+export { appLoad, startGame };
