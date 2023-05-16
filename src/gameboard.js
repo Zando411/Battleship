@@ -1,4 +1,5 @@
 import { createShip } from './ships.js';
+import { displayShips, populatePlayerGrid } from './dom.js';
 
 const ROWS = 10;
 const COLUMNS = 10;
@@ -219,6 +220,20 @@ function receiveAttack(user, x, y) {
   }
 }
 
+function resetBoard(user) {
+  user.gameboard = newGameboard();
+  user.allShipsPlaced = false;
+  user.ships.forEach((ship) => {
+    ship.isPlaced = false;
+    ship.vertical = false;
+  });
+  populatePlayerGrid(user);
+  if (user.isComputer === true) {
+    return;
+  }
+  displayShips(user.ships);
+}
+
 export {
   makeShips,
   placeShip,
@@ -227,4 +242,5 @@ export {
   areAllShipsSunk,
   placeShipsRandom,
   areAllShipsPlaced,
+  resetBoard,
 };

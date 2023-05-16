@@ -1,5 +1,5 @@
 import { startGame } from './index.js';
-import { placeShip } from './gameboard.js';
+import { placeShip, resetBoard } from './gameboard.js';
 import { player } from './index.js';
 
 function clearContainer(containerID) {
@@ -60,9 +60,6 @@ function populateOpponentGrid(user) {
       cellElement.dataset.cellHit = cell.isHit;
       cellElement.dataset.y = j;
       cellElement.dataset.x = i;
-      if (cell.hasShip !== null) {
-        cellElement.style.backgroundColor = '#B0BEC5';
-      }
       cellElement.addEventListener('click', (e) => {
         console.log(e.target.dataset.x, e.target.dataset.y);
       });
@@ -162,6 +159,10 @@ function addButtonEventListeners() {
   const clearBtn = document.getElementById('clearBoard');
   const startBtn = document.getElementById('startGame');
 
+  clearBtn.addEventListener('click', () => {
+    resetBoard(player);
+  });
+
   startBtn.addEventListener('click', () => {
     const playerName = document.getElementById('nameInput').value;
     console.log(typeof playerName);
@@ -170,4 +171,10 @@ function addButtonEventListeners() {
   });
 }
 
-export { populateGrids, displayShips, addDragability, addButtonEventListeners };
+export {
+  populateGrids,
+  displayShips,
+  addDragability,
+  addButtonEventListeners,
+  populatePlayerGrid,
+};
