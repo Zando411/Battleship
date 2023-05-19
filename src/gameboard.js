@@ -172,7 +172,6 @@ function randomCoords() {
 function placeShipsRandom(user) {
   const shipList = user.ships;
   const gameboard = user.gameboard;
-  const placedCoordinates = new Set();
   user.clearGameboard();
 
   shipList.forEach((ship) => {
