@@ -146,10 +146,11 @@ function placeShip(gameboard, currentShip, x, y) {
       for (let i = 0; i < length; i++) {
         gameboard[y][x + i].hasShip = key;
       }
-      currentShip.isPlaced = true;
     }
+    currentShip.isPlaced = true;
+    return true;
   } else {
-    throw new Error("Ship can't be placed here.");
+    return false;
   }
 }
 
@@ -172,38 +173,22 @@ function placeShipsRandom(user) {
   const shipList = user.ships;
   const gameboard = user.gameboard;
   const placedCoordinates = new Set();
+  user.clearGameboard();
+
   shipList.forEach((ship) => {
-    const vertical = Math.random() >= 0.5;
-    ship = turnShip(vertical, ship);
+    ship.isPlaced = false;
+    ship.vertical = false;
+  });
 
-    function randomizer() {
+  shipList.forEach((ship) => {
+    function placeRandom(ship) {
+      const vertical = Math.random() >= 0.5;
+      ship = turnShip(vertical, ship);
       const { x, y } = randomCoords();
-      const isValid = isValidPosition(ship, x, y, ship.vertical, gameboard);
-
-      if (isValid === true) {
-        if (placedCoordinates.has(`${x},${y}`)) {
-          return randomizer();
-        }
-        placedCoordinates.add(`${x},${y}`);
-        return { x, y };
-      } else {
-        return randomizer();
-      }
+      const placed = placeShip(gameboard, ship, x, y);
+      if (!placed) placeRandom(ship);
     }
-
-    const { x, y } = randomizer();
-
-    if (vertical) {
-      for (let i = 0; i < ship.length; i++) {
-        placedCoordinates.add(`${x},${y + i}`);
-      }
-    } else {
-      for (let i = 0; i < ship.length; i++) {
-        placedCoordinates.add(`${x + i},${y}`);
-      }
-    }
-    placeShip(gameboard, ship, x, y);
-    ship.isPlaced = true;
+    placeRandom(ship);
   });
 }
 

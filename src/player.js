@@ -10,10 +10,11 @@ import {
 function createPlayer() {
   let name = 'Player';
   const prevMoves = new Set();
-  const gameboard = newGameboard();
+  let gameboard = newGameboard();
   const ships = makeShips();
   let allShipsPlaced = false;
 
+  //rewrite
   function getCoordinates() {
     x = prompt('enter X coordinate');
     y = prompt('enter Y coordinate');
@@ -31,6 +32,11 @@ function createPlayer() {
     if (areAllShipsSunk(opponent.ships)) {
       console.log(`You win!`);
     }
+  }
+  //
+
+  function clearGameboard() {
+    gameboard = newGameboard();
   }
 
   function placeShips() {
@@ -54,6 +60,7 @@ function createPlayer() {
     allShipsPlaced,
     placeShips,
     validateAllShipsPlaced,
+    clearGameboard,
   };
 }
 
@@ -61,8 +68,9 @@ function createComputer() {
   const isComputer = true;
   const name = 'Computer';
   const prevMoves = new Set();
-  const gameboard = newGameboard();
+  let gameboard = newGameboard();
   const ships = makeShips();
+  let allShipsPlaced = false;
 
   function getRandomCoordinates() {
     const x = Math.floor(Math.random() * 10);
@@ -82,11 +90,24 @@ function createComputer() {
     }
   }
 
+  function clearGameboard() {
+    gameboard = newGameboard();
+  }
+
   function placeShips() {
     placeShipsRandom(this);
   }
 
-  return { name, gameboard, ships, takeTurn, isComputer, placeShips };
+  return {
+    name,
+    gameboard,
+    ships,
+    takeTurn,
+    isComputer,
+    placeShips,
+    allShipsPlaced,
+    clearGameboard,
+  };
 }
 
 export { createPlayer, createComputer };
