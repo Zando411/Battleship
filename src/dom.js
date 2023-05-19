@@ -1,5 +1,5 @@
 import { startGame } from './index.js';
-import { placeShip, resetBoard } from './gameboard.js';
+import { placeShip, placeShipsRandom, resetBoard } from './gameboard.js';
 import { player } from './index.js';
 
 function clearContainer(containerID) {
@@ -37,9 +37,6 @@ function populatePlayerGrid(user) {
       if (cell.hasShip !== null) {
         cellElement.style.backgroundColor = '#B0BEC5';
       }
-      cellElement.addEventListener('click', (e) => {
-        console.log(e.target.dataset.x, e.target.dataset.y);
-      });
       grid.appendChild(cellElement);
       i++;
     });
@@ -158,9 +155,14 @@ function displayShips(ships) {
 function addButtonEventListeners() {
   const clearBtn = document.getElementById('clearBoard');
   const startBtn = document.getElementById('startGame');
+  const randomBtn = document.getElementById('randomBoard');
 
   clearBtn.addEventListener('click', () => {
     resetBoard(player);
+  });
+
+  randomBtn.addEventListener('click', () => {
+    placeShipsRandom(player);
   });
 
   startBtn.addEventListener('click', () => {
