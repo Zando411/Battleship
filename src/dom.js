@@ -183,31 +183,24 @@ function addButtonEventListeners() {
   });
 
   startBtn.addEventListener('click', () => {
-    const playerName = document.getElementById('nameInput').value;
-    console.log(typeof playerName);
+    const playerName = document.getElementById('nameInput');
+    if (playerName.value === '') {
+      return;
+    }
     player.name = playerName;
+    playerName.value = '';
     startGame();
   });
 }
 
-function openWinnnerPopup() {
-  const popup = document.getElementById('winner-popup');
-  popup.style.display = 'block';
+function setElementDisplay(elementId, displayValue) {
+  const element = document.getElementById(elementId);
+  element.style.display = displayValue;
 }
 
-function closeWinnnerPopup() {
-  const popup = document.getElementById('winner-popup');
-  popup.style.display = 'none';
-}
+function hideButtons() {}
 
-function hideOpponentBoard() {
-  const board = document.getElementById('opponent-board');
-  board.style.display = 'none';
-}
-function showOpponentBoard() {
-  const board = document.getElementById('opponent-board');
-  board.style.display = 'flex';
-}
+function showButtons() {}
 
 export {
   populateGrids,
@@ -216,9 +209,6 @@ export {
   addButtonEventListeners,
   populatePlayerGrid,
   populateOpponentGrid,
-  openWinnnerPopup,
-  closeWinnnerPopup,
-  hideOpponentBoard,
-  showOpponentBoard,
   initalizePlayerGrid,
+  setElementDisplay,
 };

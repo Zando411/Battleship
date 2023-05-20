@@ -20,7 +20,7 @@ export function gameLoop(x, y) {
     opponent.takeTurn();
   }
   if (gameOver === true) {
-    openWinnnerPopup();
+    setElementDisplay('winner-popup', 'block');
     document.getElementById('winningName').textContent = winner;
   }
 }
