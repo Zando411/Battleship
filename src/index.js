@@ -19,6 +19,7 @@ function appLoad() {
 
 export function startGame() {
   player.validateAllShipsPlaced();
+  setElementDisplay('ships', 'none');
   populateOpponentGrid(opponent);
   opponent.placeShips();
   setElementDisplay('opponent-board', 'flex');

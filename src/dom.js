@@ -198,10 +198,6 @@ function setElementDisplay(elementId, displayValue) {
   element.style.display = displayValue;
 }
 
-function hideButtons() {}
-
-function showButtons() {}
-
 export {
   populateGrids,
   displayShips,
