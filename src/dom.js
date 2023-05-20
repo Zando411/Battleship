@@ -200,6 +200,15 @@ function closeWinnnerPopup() {
   popup.style.display = 'none';
 }
 
+function hideOpponentBoard() {
+  const board = document.getElementById('opponent-board');
+  board.style.display = 'none';
+}
+function showOpponentBoard() {
+  const board = document.getElementById('opponent-board');
+  board.style.display = 'flex';
+}
+
 export {
   populateGrids,
   displayShips,
@@ -209,4 +218,7 @@ export {
   populateOpponentGrid,
   openWinnnerPopup,
   closeWinnnerPopup,
+  hideOpponentBoard,
+  showOpponentBoard,
+  initalizePlayerGrid,
 };

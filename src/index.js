@@ -1,20 +1,30 @@
-import { addButtonEventListeners, displayShips, populateGrids } from './dom.js';
+import {
+  addButtonEventListeners,
+  displayShips,
+  hideOpponentBoard,
+  initalizePlayerGrid,
+  populateGrids,
+  populateOpponentGrid,
+  populatePlayerGrid,
+  showOpponentBoard,
+} from './dom.js';
 import { createPlayer, createComputer } from './player.js';
 
 export const player = createPlayer();
 export const opponent = createComputer();
 
 function appLoad() {
-  opponent.placeShips();
-  player.placeShips(); // remove later when drag and drop fully works
+  hideOpponentBoard();
   displayShips(player.ships);
-  populateGrids(player, opponent);
+  initalizePlayerGrid(player);
   addButtonEventListeners();
 }
 
 export function startGame() {
   player.validateAllShipsPlaced();
-  console.log(player.name);
+  populateOpponentGrid(opponent);
+  opponent.placeShips();
+  showOpponentBoard();
 }
 
 appLoad();
