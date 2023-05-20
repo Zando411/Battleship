@@ -8,9 +8,12 @@
 // break or continue looping
 // if gameOver = true return winning player name and say winner
 
-import { displayShips, populateGrids } from './dom.js';
-import { areAllShipsPlaced, makeShips, placeShipsRandom } from './gameboard.js';
-import { createComputer, createPlayer } from './player.js';
+import { opponent, player } from './index.js';
+import { populateOpponentGrid, populatePlayerGrid } from './dom.js';
 
-
-export { appLoad, startGame };
+export function gameLoop(x, y) {
+  player.takeTurn(x, y);
+  opponent.takeTurn();
+  console.log(opponent.gameboard);
+  console.log(player.gameboard);
+}

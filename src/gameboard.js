@@ -191,19 +191,6 @@ function placeShipsRandom(user) {
   });
 }
 
-function receiveAttack(user, x, y) {
-  const ships = user.ships;
-  const gameboard = user.gameboard;
-  if (gameboard[y][x].isHit === true) {
-    throw new Error('This square has already been hit!');
-  }
-  gameboard[y][x].isHit = true;
-  if (gameboard[y][x].hasShip !== null) {
-    const shipKey = gameboard[y][x].hasShip;
-    ships[shipKey].hit();
-  }
-}
-
 function resetBoard(user) {
   user.gameboard = newGameboard();
   user.allShipsPlaced = false;
@@ -221,7 +208,6 @@ function resetBoard(user) {
 export {
   makeShips,
   placeShip,
-  receiveAttack,
   newGameboard,
   areAllShipsSunk,
   placeShipsRandom,

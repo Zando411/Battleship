@@ -1,6 +1,7 @@
 import { startGame } from './index.js';
 import { placeShip, placeShipsRandom, resetBoard } from './gameboard.js';
 import { player } from './index.js';
+import { gameLoop } from './gameLoop.js';
 
 function clearContainer(containerID) {
   const div = document.getElementById(containerID);
@@ -34,8 +35,15 @@ function populatePlayerGrid(user) {
       cellElement.dataset.cellHit = cell.isHit;
       cellElement.dataset.y = j;
       cellElement.dataset.x = i;
+
       if (cell.hasShip !== null) {
         cellElement.style.backgroundColor = '#B0BEC5';
+      }
+      if (cell.isHit === true) {
+        cellElement.style.backgroundColor = '#FFD97D';
+      }
+      if (cell.hasShip !== null && cell.isHit === true) {
+        cellElement.style.backgroundColor = '#EE6055';
       }
       grid.appendChild(cellElement);
       i++;
@@ -58,8 +66,17 @@ function populateOpponentGrid(user) {
       cellElement.dataset.y = j;
       cellElement.dataset.x = i;
       cellElement.addEventListener('click', (e) => {
-        console.log(e.target.dataset.x, e.target.dataset.y);
+        const x = e.target.dataset.x;
+        const y = e.target.dataset.y;
+        console.log(x, y);
+        gameLoop(x, y);
       });
+      if (cell.isHit === true) {
+        cellElement.style.backgroundColor = '#FFD97D';
+      }
+      if (cell.hasShip !== null && cell.isHit === true) {
+        cellElement.style.backgroundColor = '#EE6055';
+      }
       grid2.appendChild(cellElement);
       i++;
     });
@@ -181,4 +198,5 @@ export {
   addDragability,
   addButtonEventListeners,
   populatePlayerGrid,
+  populateOpponentGrid,
 };

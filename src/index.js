@@ -2,7 +2,7 @@ import { addButtonEventListeners, displayShips, populateGrids } from './dom.js';
 import { createPlayer, createComputer } from './player.js';
 
 export const player = createPlayer();
-const opponent = createComputer();
+export const opponent = createComputer();
 
 function appLoad() {
   opponent.placeShips();
