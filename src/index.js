@@ -10,7 +10,9 @@ import { createPlayer, createComputer } from './player.js';
 export const player = createPlayer();
 export const opponent = createComputer();
 
-function appLoad() {
+export function appLoad() {
+  console.log(player);
+  setElementDisplay('ships', 'flex');
   setElementDisplay('opponent-board', 'none');
   displayShips(player.ships);
   initalizePlayerGrid(player);
@@ -24,5 +26,7 @@ export function startGame() {
   opponent.placeShips();
   setElementDisplay('opponent-board', 'flex');
 }
+
+function resetGame() {}
 
 appLoad();

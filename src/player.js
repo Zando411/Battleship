@@ -12,7 +12,6 @@ import { player, opponent } from './index.js';
 
 function createPlayer() {
   let name = 'Player';
-  const prevMoves = new Set();
   const gameboard = newGameboard();
   const ships = makeShips();
   let allShipsPlaced = false;
@@ -23,6 +22,15 @@ function createPlayer() {
         gameboard[i][j].hasShip = null;
       }
     }
+  }
+
+  function resetShips() {
+    ships.forEach((ship) => {
+      ship.isPlaced = false;
+      ship.vertical = false;
+      ship.hits = 0;
+      ship.sunk = false;
+    });
   }
 
   function placeShips() {
@@ -58,6 +66,13 @@ function createPlayer() {
     populateOpponentGrid(opponent);
   }
 
+  function resetVariables() {
+    name = 'Player';
+    clearBoard();
+    allShipsPlaced = false;
+    resetShips();
+  }
+
   return {
     name,
     gameboard,
@@ -69,6 +84,7 @@ function createPlayer() {
     clearBoard,
     takeTurn,
     receiveAttack,
+    resetVariables,
   };
 }
 
@@ -98,6 +114,15 @@ function createComputer() {
     }
   }
 
+  function resetShips() {
+    ships.forEach((ship) => {
+      ship.isPlaced = false;
+      ship.vertical = false;
+      ship.hits = 0;
+      ship.sunk = false;
+    });
+  }
+
   function receiveAttack(x, y) {
     if (gameboard[y][x].isHit === true) {
       throw new Error('This square has already been hit!');
@@ -123,6 +148,11 @@ function createComputer() {
     placeShipsRandom(this);
   }
 
+  function resetVariables() {
+    clearBoard();
+    allShipsPlaced = false;
+    resetShips();
+  }
   return {
     name,
     gameboard,
@@ -134,6 +164,7 @@ function createComputer() {
     clearBoard,
     receiveAttack,
     takeTurn,
+    resetVariables,
   };
 }
 

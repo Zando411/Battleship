@@ -1,4 +1,4 @@
-import { startGame } from './index.js';
+import { opponent, startGame, appLoad } from './index.js';
 import { placeShip, placeShipsRandom, resetBoard } from './gameboard.js';
 import { player } from './index.js';
 import { gameLoop } from './gameLoop.js';
@@ -171,6 +171,7 @@ function addButtonEventListeners() {
   const clearBtn = document.getElementById('clearBoard');
   const startBtn = document.getElementById('startGame');
   const randomBtn = document.getElementById('randomBoard');
+  const replayBtn = document.getElementById('playAgain');
 
   clearBtn.addEventListener('click', () => {
     resetBoard(player);
@@ -190,6 +191,13 @@ function addButtonEventListeners() {
     player.name = playerName;
     playerName.value = '';
     startGame();
+  });
+
+  replayBtn.addEventListener('click', () => {
+    player.resetVariables();
+    opponent.resetVariables();
+    setElementDisplay('winner-popup', 'none');
+    appLoad();
   });
 }
 
