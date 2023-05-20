@@ -21,7 +21,6 @@ function initalizePlayerGrid(user) {
 }
 
 function populatePlayerGrid(user) {
-  console.log(user.gameboard);
   clearContainer('playerGameboard');
   const grid = document.getElementById('playerGameboard');
   let j = 0;
@@ -68,7 +67,6 @@ function populateOpponentGrid(user) {
       cellElement.addEventListener('click', (e) => {
         const x = e.target.dataset.x;
         const y = e.target.dataset.y;
-        console.log(x, y);
         gameLoop(x, y);
       });
       if (cell.isHit === true) {
@@ -192,6 +190,16 @@ function addButtonEventListeners() {
   });
 }
 
+function openWinnnerPopup() {
+  const popup = document.getElementById('winner-popup');
+  popup.style.display = 'block';
+}
+
+function closeWinnnerPopup() {
+  const popup = document.getElementById('winner-popup');
+  popup.style.display = 'none';
+}
+
 export {
   populateGrids,
   displayShips,
@@ -199,4 +207,6 @@ export {
   addButtonEventListeners,
   populatePlayerGrid,
   populateOpponentGrid,
+  openWinnnerPopup,
+  closeWinnnerPopup,
 };

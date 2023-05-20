@@ -8,6 +8,7 @@
 // break or continue looping
 // if gameOver = true return winning player name and say winner
 
+import { openWinnnerPopup } from './dom.js';
 import { opponent, player } from './index.js';
 
 export let gameOver = false;
@@ -19,6 +20,7 @@ export function gameLoop(x, y) {
     opponent.takeTurn();
   }
   if (gameOver === true) {
-    console.log(winner);
+    openWinnnerPopup();
+    document.getElementById('winningName').textContent = winner;
   }
 }
