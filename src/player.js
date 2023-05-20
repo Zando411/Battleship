@@ -17,8 +17,6 @@ function createPlayer() {
   const ships = makeShips();
   let allShipsPlaced = false;
 
-  //
-  // NEED TO ADD FUNCTION TO SET ALL ARRAY POSITIONS TO NULL
   function clearBoard() {
     for (let i = 0; i < gameboard.length; i++) {
       for (let j = 0; j < gameboard[i].length; j++) {
@@ -51,7 +49,6 @@ function createPlayer() {
     }
   }
 
-  //rewrite
   function takeTurn(x, y) {
     opponent.receiveAttack(x, y);
     if (areAllShipsSunk(opponent.ships)) {
