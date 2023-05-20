@@ -9,11 +9,16 @@
 // if gameOver = true return winning player name and say winner
 
 import { opponent, player } from './index.js';
-import { populateOpponentGrid, populatePlayerGrid } from './dom.js';
+
+export let gameOver = false;
+export let winner = null;
 
 export function gameLoop(x, y) {
-  player.takeTurn(x, y);
-  opponent.takeTurn();
-  console.log(opponent.gameboard);
-  console.log(player.gameboard);
+  if (gameOver === false) {
+    player.takeTurn(x, y);
+    opponent.takeTurn();
+  }
+  if (gameOver === true) {
+    console.log(winner);
+  }
 }

@@ -1,4 +1,5 @@
 import { populateOpponentGrid, populatePlayerGrid } from './dom.js';
+import { gameOver, winner } from './gameLoop.js';
 import {
   areAllShipsPlaced,
   areAllShipsSunk,
@@ -52,13 +53,12 @@ function createPlayer() {
 
   //rewrite
   function takeTurn(x, y) {
-    console.log('player start');
     opponent.receiveAttack(x, y);
     if (areAllShipsSunk(opponent.ships)) {
-      console.log(`You win!`);
+      winner = `${name}`;
+      gameOver = true;
     }
     populateOpponentGrid(opponent);
-    console.log('player end');
   }
 
   return {
@@ -113,13 +113,12 @@ function createComputer() {
   }
 
   function takeTurn() {
-    console.log('opponent start');
     const [x, y] = getRandomCoordinates();
     player.receiveAttack(x, y);
     if (areAllShipsSunk(player.ships)) {
-      console.log(`${name} wins!`);
+      winner = `${name}`;
+      gameOver = true;
     }
-    console.log('opponent end');
     populatePlayerGrid(player);
   }
 
