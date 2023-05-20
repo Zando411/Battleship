@@ -8,7 +8,7 @@
 // break or continue looping
 // if gameOver = true return winning player name and say winner
 
-import { openWinnnerPopup } from './dom.js';
+import { setElementDisplay } from './dom.js';
 import { opponent, player } from './index.js';
 
 export let gameOver = false;
