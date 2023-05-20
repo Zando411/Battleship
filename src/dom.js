@@ -163,6 +163,8 @@ function addButtonEventListeners() {
 
   randomBtn.addEventListener('click', () => {
     placeShipsRandom(player);
+    populatePlayerGrid(player);
+    displayShips(player.ships);
   });
 
   startBtn.addEventListener('click', () => {

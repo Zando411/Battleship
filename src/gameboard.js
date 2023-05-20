@@ -172,21 +172,21 @@ function randomCoords() {
 function placeShipsRandom(user) {
   const shipList = user.ships;
   const gameboard = user.gameboard;
-  user.clearGameboard();
-
+  user.clearBoard();
   shipList.forEach((ship) => {
     ship.isPlaced = false;
     ship.vertical = false;
   });
 
+  function placeRandom(ship) {
+    const vertical = Math.random() >= 0.5;
+    ship = turnShip(vertical, ship);
+    const { x, y } = randomCoords();
+    const placed = placeShip(gameboard, ship, x, y);
+    if (!placed) placeRandom(ship);
+  }
+
   shipList.forEach((ship) => {
-    function placeRandom(ship) {
-      const vertical = Math.random() >= 0.5;
-      ship = turnShip(vertical, ship);
-      const { x, y } = randomCoords();
-      const placed = placeShip(gameboard, ship, x, y);
-      if (!placed) placeRandom(ship);
-    }
     placeRandom(ship);
   });
 }

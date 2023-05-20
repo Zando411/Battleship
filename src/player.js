@@ -10,7 +10,7 @@ import {
 function createPlayer() {
   let name = 'Player';
   const prevMoves = new Set();
-  let gameboard = newGameboard();
+  const gameboard = newGameboard();
   const ships = makeShips();
   let allShipsPlaced = false;
 
@@ -34,9 +34,13 @@ function createPlayer() {
     }
   }
   //
-
-  function clearGameboard() {
-    gameboard = newGameboard();
+  // NEED TO ADD FUNCTION TO SET ALL ARRAY POSITIONS TO NULL
+  function clearBoard() {
+    for (let i = 0; i < gameboard.length; i++) {
+      for (let j = 0; j < gameboard[i].length; j++) {
+        gameboard[i][j].hasShip = null;
+      }
+    }
   }
 
   function placeShips() {
@@ -60,7 +64,7 @@ function createPlayer() {
     allShipsPlaced,
     placeShips,
     validateAllShipsPlaced,
-    clearGameboard,
+    clearBoard,
   };
 }
 
@@ -68,7 +72,7 @@ function createComputer() {
   const isComputer = true;
   const name = 'Computer';
   const prevMoves = new Set();
-  let gameboard = newGameboard();
+  const gameboard = newGameboard();
   const ships = makeShips();
   let allShipsPlaced = false;
 
@@ -90,8 +94,12 @@ function createComputer() {
     }
   }
 
-  function clearGameboard() {
-    gameboard = newGameboard();
+  function clearBoard() {
+    for (let i = 0; i < gameboard.length; i++) {
+      for (let j = 0; j < gameboard[i].length; j++) {
+        gameboard[i][j].hasShip = null;
+      }
+    }
   }
 
   function placeShips() {
@@ -106,7 +114,7 @@ function createComputer() {
     isComputer,
     placeShips,
     allShipsPlaced,
-    clearGameboard,
+    clearBoard,
   };
 }
 
