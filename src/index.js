@@ -4,6 +4,7 @@ import {
   initalizePlayerGrid,
   populateOpponentGrid,
   setElementDisplay,
+  setPlayerTitleName,
 } from './dom.js';
 import { createPlayer, createComputer } from './player.js';
 
@@ -11,7 +12,7 @@ export const player = createPlayer();
 export const opponent = createComputer();
 
 export function appLoad() {
-  console.log(player);
+  setPlayerTitleName();
   setElementDisplay('ships', 'flex');
   setElementDisplay('opponent-board', 'none');
   displayShips(player.ships);
@@ -21,6 +22,7 @@ export function appLoad() {
 
 export function startGame() {
   player.validateAllShipsPlaced();
+  setPlayerTitleName();
   setElementDisplay('ships', 'none');
   populateOpponentGrid(opponent);
   opponent.placeShips();

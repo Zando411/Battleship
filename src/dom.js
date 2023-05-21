@@ -188,7 +188,7 @@ function addButtonEventListeners() {
     if (playerName.value === '') {
       return;
     }
-    player.name = playerName;
+    player.name = playerName.value;
     playerName.value = '';
     startGame();
   });
@@ -206,6 +206,11 @@ function setElementDisplay(elementId, displayValue) {
   element.style.display = displayValue;
 }
 
+function setPlayerTitleName() {
+  const playerName = document.getElementById('playerName');
+  playerName.textContent = player.name;
+}
+
 export {
   populateGrids,
   displayShips,
@@ -215,4 +220,5 @@ export {
   populateOpponentGrid,
   initalizePlayerGrid,
   setElementDisplay,
+  setPlayerTitleName,
 };
