@@ -20,6 +20,7 @@ function createPlayer() {
     for (let i = 0; i < gameboard.length; i++) {
       for (let j = 0; j < gameboard[i].length; j++) {
         gameboard[i][j].hasShip = null;
+        gameboard[i][j].isHit = false;
       }
     }
   }
@@ -110,6 +111,7 @@ function createComputer() {
     for (let i = 0; i < gameboard.length; i++) {
       for (let j = 0; j < gameboard[i].length; j++) {
         gameboard[i][j].hasShip = null;
+        gameboard[i][j].isHit = false;
       }
     }
   }
