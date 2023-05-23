@@ -87,14 +87,18 @@ body {
 
 main {
   display: grid;
-  grid-template-rows: 12% 65% 23%;
-  max-width: 1250px;
+  grid-template-rows: 12% 85%;
+  max-width: 80%;
   margin: 0 auto;
   height: 100%;
 }
 
 div.section {
   width: 100%;
+}
+
+#boardsAndShips {
+  display: flex;
 }
 
 #header {
@@ -170,12 +174,10 @@ h2 {
   display: flex;
   flex-direction: column;
   justify-content: start;
-  align-items: center;
   gap: 1rem;
 }
 
 #playerShips {
-  height: 75px;
   display: flex;
   gap: 1rem;
   align-items: center;
@@ -192,10 +194,13 @@ h2 {
 }
 
 .ship {
-  height: 50px;
   display: flex;
   outline: 2px solid black;
   background-color: var(--gray);
+}
+
+.ship[data-is-vertical='true'] {
+  flex-direction: column;
 }
 
 .ship.placed {
@@ -255,7 +260,6 @@ button {
   border-radius: 4px;
   cursor: pointer;
   transition: background-color 0.3s ease;
-  height: 36px;
 }
 button:hover {
   background-color: #1565c0;
@@ -267,7 +271,6 @@ input {
   border: 2px solid #2b4e62;
   border-radius: 4px;
   transition: border-color 0.3s ease;
-  height: 36px;
 }
 
 input:focus {

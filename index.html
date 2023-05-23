@@ -13,26 +13,27 @@
       <div class="section" id="header">
         <h1 id="title">Battleship</h1>
       </div>
-      <div class="section" id="main">
-        <div id="player-board" class="board-wrapper">
-          <h2><span id="playerName"></span>'s Board</h2>
-          <div class="gameboard" id="playerGameboard"></div>
+      <div id="boardsAndShips">
+        <div class="section" id="main">
+          <div id="player-board" class="board-wrapper">
+            <h2><span id="playerName"></span>'s Board</h2>
+            <div class="gameboard" id="playerGameboard"></div>
+          </div>
+          <div id="opponent-board" class="board-wrapper">
+            <h2>Opponent's Board</h2>
+            <div class="gameboard" id="opponentGameboard"></div>
+          </div>
         </div>
-
-        <div id="opponent-board" class="board-wrapper">
-          <h2>Opponent's Board</h2>
-          <div class="gameboard" id="opponentGameboard"></div>
+        <div class="section" id="ships">
+          <div id="shipButtons">
+            <h2>Ships:</h2>
+            <button id="clearBoard">Clear Board</button>
+            <button id="randomBoard">Randomize Ships</button>
+            <input type="text" placeholder="enter name" id="nameInput" />
+            <button id="startGame">Start Game</button>
+          </div>
+          <div id="playerShips" class="container"></div>
         </div>
-      </div>
-      <div class="section" id="ships">
-        <div id="shipButtons">
-          <h2>Ships:</h2>
-          <button id="clearBoard">Clear Board</button>
-          <button id="randomBoard">Randomize Ships</button>
-          <input type="text" placeholder="enter name" id="nameInput" />
-          <button id="startGame">Start Game</button>
-        </div>
-        <div id="playerShips" class="container"></div>
       </div>
     </main>
     <div id="winner-popup">
