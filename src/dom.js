@@ -1,5 +1,10 @@
 import { opponent, startGame, appLoad } from './index.js';
-import { placeShip, placeShipsRandom, resetBoard } from './gameboard.js';
+import {
+  placeShip,
+  placeShipsRandom,
+  resetBoard,
+  turnShip,
+} from './gameboard.js';
 import { player } from './index.js';
 import { gameLoop } from './gameLoop.js';
 
@@ -84,7 +89,6 @@ function populateOpponentGrid(user) {
 
 let selectedPart;
 let shipKey;
-let rWasPressed = false;
 
 function addGameboardEventListeners(user) {
   const gameboard = document.getElementById('playerGameboard');
@@ -112,7 +116,7 @@ function addGameboardEventListeners(user) {
   });
 }
 
-function addDragability() {
+function addDragability(ships) {
   const draggables = document.querySelectorAll('.draggable');
 
   draggables.forEach((draggable) => {
@@ -123,19 +127,21 @@ function addDragability() {
     draggable.addEventListener('dragend', () => {
       draggable.classList.remove('dragging');
     });
-    draggable.addEventListener('mousedown', (e) => {
-      selectedPart = Number(e.target.dataset.partIndex);
-      console.log(selectedPart);
+    draggable.addEventListener('mousedown', (event) => {
+      selectedPart = Number(event.target.dataset.partIndex);
     });
-    //   draggable.addEventListener('drag', (event) => {
-    //     console.log(rWasPressed);
-    //   });
-    // });
-    // document.addEventListener('keydown', (event) => {
-    //   if (event.key === 'r') {
-    //     rWasPressed = !rWasPressed;
-    //     console.log(rWasPressed);
-    //   }
+
+    // need to pass ships through properly to the event listener?
+    //target parent of clicked
+    draggable.addEventListener('click', (event) => {
+      console.log(event.currentTarget);
+      const shipKey = event.currentTarget.dataset.shipKey;
+      const ship = ships[shipKey];
+      console.log(ship);
+      console.log(ship.vertical);
+      ship.vertical = !ship.vertical;
+      displayShips(ships);
+    });
   });
 }
 
@@ -148,6 +154,7 @@ function displayShips(ships) {
 
     newShip.dataset.shipKey = ship.key;
     newShip.dataset.isPlaced = ship.isPlaced;
+    newShip.dataset.isVertical = ship.vertical;
 
     if (ship.isPlaced === true) {
       newShip.setAttribute('draggable', false);
@@ -164,7 +171,7 @@ function displayShips(ships) {
     }
     playerShips.appendChild(newShip);
   });
-  addDragability();
+  addDragability(ships);
 }
 
 function addButtonEventListeners() {
