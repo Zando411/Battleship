@@ -131,8 +131,6 @@ function addDragability(ships) {
       selectedPart = Number(event.target.dataset.partIndex);
     });
 
-    // need to pass ships through properly to the event listener?
-    //target parent of clicked
     draggable.addEventListener('click', (event) => {
       console.log(event.currentTarget);
       const shipKey = event.currentTarget.dataset.shipKey;
