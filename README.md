@@ -4,9 +4,12 @@ A live demo of the game can be found[here](https://zando411.github.io/Battleship
 
 ## How to Play
 
-To start, place your ships onto your board however you like by clicking to rotate and dragging them into place.'
+To start, place your ships onto your board however you like by clicking to rotate and dragging them into place.
 
-![gif of ship being clicked and rotated](./images/rotate.gif) ![gif of ship being dragged in place](./images/drag.gif)
+<div style="display: flex; justify-content: center;">
+    <img src="./images/rotate.gif" alt="gif of ship being clicked and rotated" style="width: 45%;">
+    <img src="./images/drag.gif" alt="gif of ship being dragged in place" style="width: 45%;">
+</div>
 
 or, for quick setup press the randomize button.
 
