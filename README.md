@@ -24,8 +24,8 @@ Then you can replay as many times as you wish by replacing your ships and starti
 
 ## What I learned
 
-1. Basics of Jest
-1. Developing with Test Driven Development
-1. Using Factory Functions
-1. Deploying projects to Github Pages
-1. Using Webpack for bundling and compiling
+- Basics of Jest
+- Developing with Test Driven Development
+- Using Factory Functions
+- Deploying projects to Github Pages
+- Using Webpack for bundling and compiling
