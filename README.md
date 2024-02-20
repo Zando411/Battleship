@@ -1,6 +1,6 @@
 # Battleship
 
-A live demo of the game can be found[here](https://zando411.github.io/Battleship/)
+A live demo of the game can be found [here](https://zando411.github.io/Battleship/)
 
 ## How to Play
 
