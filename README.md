@@ -6,9 +6,7 @@ A live demo of the game can be found [here](https://zando411.github.io/Battleshi
 
 To start, place your ships onto your board however you like by clicking to rotate and dragging them into place.
 
-| ![gif of ship being clicked and rotated](./images/rotate.gif) | ![gif of ship being dragged in place](./images/drag.gif) |
-|:--:|:--:|
-| *gif of ship being clicked and rotated* | *gif of ship being dragged in place* |
+![gif of ship being clicked and rotated](./images/rotate.gif) ![gif of ship being dragged in place](./images/drag.gif)
 
 or, for quick setup press the randomize button.
 
